@@ -100,9 +100,9 @@ Image with Height and Width Adjusted:
 
 1. Make an images folder in your personal repository, and import an image of your hometown or pet from that folder. Do it both unformatted, and formatted to change the size:
 
-![HondurasCuisine](https://github.com/Galantino/crg_4530/blob/master/Photos/HondurasCuisine?raw=true)
+![HondurasCuisine](https://github.com/Galantino/crg_4530/blob/master/Photos/HondurasCuisine.JPG?raw=true)
 
-<img src="https://github.com/AguaClara/aguaclara_tutorial/blob/master/Images/Cornell_University_seal.svg.png?raw=true" height=200 width=100>
+<img src="https://github.com/Galantino/crg_4530/blob/master/Photos/HondurasCuisine.JPG?raw=true" height=50 width=500>
 
 
 ## Links
@@ -145,10 +145,11 @@ When making tables, it's not important that the lines match up. For example, the
 
 1. Create a table listing your 3 favorite animals, foods, books, and places on campus. Try out the different cell justifications:
 
-| Foods | Animals | Places |   
-|:----- |:-------:| ------:|
-| Baleadas    |    2    |      3 |   
-|    Lentils|      |     |
+| Foods    | Animals |     Places | Books     |
+|:-------- |:-------:| ----------:| --------- |
+| Baleadas |   Owl   |       Olin | Jane Eyre |
+| Lentils  |   Baby seal      |       FIJI | 1984      |
+| Sushi    |    Moose     | Design Lab |   Slaughterhouse 5          |
 
 ## Code and Syntax Highlighting
 Notice how throughout this document there have been computer and programming related words formatted to look more "computery". That's because I've used syntax highlighting.
@@ -165,12 +166,13 @@ For larger code blocks where you report multiple lines of code, you always start
 
 1. Below, write a Python print function with a different string using syntax highlighting:
 
-<!--- Fill you answer here. --->
+`print('This is torture.')`
 
 2. Now write a block of Python code for that same print statement:
 
-<!--- Fill you answer here. --->
-
+```python
+print('This is torture.')
+```
 
 
 ## LaTeX Equations
@@ -180,7 +182,7 @@ $$ Re_D = \frac{uD}{\nu} $$
 
 1. Try it on your own! Write your favorite equation using LaTeX source code and toggle the LaTeX preview to see it formatted:
 
-<!--- Fill you answer here. --->
+$$ h = \frac{V^2}{2g}  $$
 
 
 # Using Python and Running it With Hydrogen in Markdown
@@ -212,27 +214,33 @@ These questions are meant to test what you've learned from the Python Basics tut
 
 1. Write a conditional statement with 3 conditions: when x is 10, when x is 1, and when x is anything other than 1 or 10. For each condition, have your code print what the value is or isn't.
 
-<!--- Fill you answer here. --->
-
-
-
+```python
+x = 2
+if x == 10:
+  print('x is 10')
+elif x == 1:
+  print('x is 1')
+else:
+  print('x is neither 1 nor 10')
+```
 
 2. Write a `for` loop that takes a variable with an initial value of 0, and adds the current index to the previous value of that variable (i.e. you variable should grow in size every iteration). Perform the iteration 20 times, and have the final value be printed at the end.
 
-<!--- Fill you answer here. --->
-
-
-
-
-
-
-
+```python
+x = 0
+i = 0
+for i in range (0,20):
+  x = x + 1
+  i = i+1
+print(x)
+```
 
 
 3. Using the NumPy package, calculate the value of sin(4), and use the sigfig function from the utility module in aide_design to get your answer to 3 sig-figs. *(Hint: You will need to import these packages. Remember how to do that?)*
 
-<!--- Fill you answer here. --->
-
+```python
+ut.sig(np.sin(4),3)
+```
 
 
 4. Create a `list` of length 5, and verify the length of your list. Once you've done that, turn your `list` into an `array` and apply units of meters to it. After that, create a 5x5 `array`, extract the middle row and middle column. Verify the size of your 2D `array` and apply units of liters to it.
