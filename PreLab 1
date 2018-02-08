@@ -1,0 +1,42 @@
+##Galantino, Christopher
+##Pre Lab 1
+1) Contact lenses are hazardous in the lab
+because they may hold chemical vapors, prevent the removal of
+foreign material, and prove difficult to remove in a splashing incident.
+
+2) The minimum information needed on the label for each chemical is the full
+chemical name, concentration, and date prepared. Right-To-Know labels are required
+if a chemical is deemed as a hazardous material by the definition provided by OSHA.
+
+3) It is important to label a bottle even if it contains just distilled water
+because it adds a sense of mystery for those who don't know it's distilled water.
+This leads to disposal issues and unwanted stress.
+
+4) a) ScienceLab.com created this SDS
+
+   b) The solubility of sodium nitrate in water is 92.1 g/100 ml @ 25 deg C
+    or 180 g/100 ml @ 100 deg C
+
+   c) Sodium nitrate is NOT carcinogenic
+
+   d) The LD50 oral rat is 1267 mg/kg.
+
+   e) I would have to ingest (86 kg)(1267 mg/kg) = 108,962 mg in order to
+    have a 50% chance of death.
+
+   f) Refer to the following math
+
+```python
+from aide_design.play import*
+MW = 84.9947
+ingest_L50 = 108962.0/1000.0
+req_Vol = ingest_L50/MW
+print(req_Vol)
+```
+
+   g) As for chronic effects, the substance may be toxic to blood. Repeated or
+      prolonged exposure to the substance can produce target organs damage
+
+5) First, make sure all your chemicals are properly labeled. Ensure that your lab space
+  is cleared and your hands are thoroughly washed. If you have an experiment running,
+  let someone in the lab know you'll be doing so.
