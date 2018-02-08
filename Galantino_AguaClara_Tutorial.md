@@ -58,7 +58,7 @@ There are several different ways to emphasize text: *italics*, **bold**, ***comb
 
 ***Dope***
 
-~~
+~~Groceries~~
 
 
 
@@ -71,7 +71,13 @@ Lists are very easy to do. For a bulleted list, use the asterisk and for a numbe
 
 1. Now try it out for yourself. Write down a list of things you hope to achieve this semester, and elaborate on them with sub items:
 
-<!--- Fill you answer here. --->
+* Design a Horizontal Sand Filter
+   - Understand the parameters and design constraints
+   - Buy a fish tank
+   - Build a model and run scaled experiments
+* Utilize Fusion 360
+   - Learn how to CAD and fine tune skills
+   - Create the sand filter on Fusion for documentation and parametrization
 
 ## Images
 To input images, you'll either need an image URL or a file path to your image. For AguaClara work, your repository should have a folder for images where you can get an image URL from. In this tutorial, I've made an image folder with a picture in the `aguaclara_tutorial` repository.
@@ -94,10 +100,9 @@ Image with Height and Width Adjusted:
 
 1. Make an images folder in your personal repository, and import an image of your hometown or pet from that folder. Do it both unformatted, and formatted to change the size:
 
-<!--- Fill you answer here. --->
+![HondurasCuisine](https://github.com/Galantino/crg_4530/blob/master/Photos/HondurasCuisine?raw=true)
 
-
-
+<img src="https://github.com/AguaClara/aguaclara_tutorial/blob/master/Images/Cornell_University_seal.svg.png?raw=true" height=200 width=100>
 
 
 ## Links
@@ -107,7 +112,10 @@ To insert a link, all you have to do is enclose your linked text in `[]` followe
 
 1. Below, write a sentence describing your major, and insert a link to your major's department website.
 
-<!--- Fill you answer here. --->
+My major is Environmental Engineering.
+
+[BEE](https://bee.cals.cornell.edu/)
+
 
 ## Tables
 Tables in Markdown are slightly harder, but there's an automatic function that allows to you make one easily. When working in a `.md` file, all you have to do is type `table` and hit enter. It will initialize a 2 by 2 table, but you can easily increase the width by going to the last column and hitting `Tab` or it's height by clicking in any cell and hitting `Enter`. Notice in the example how the text below the header is justified left, center, and right. This is due to the line below the header. A line with a colon on the far left of the dashes only indicates left justified, colons on both sides of the dashes indicates centered, and a colon on the far right of the dashes indicates right justified.
@@ -137,9 +145,10 @@ When making tables, it's not important that the lines match up. For example, the
 
 1. Create a table listing your 3 favorite animals, foods, books, and places on campus. Try out the different cell justifications:
 
-<!--- Fill you answer here. --->
-
-
+| Foods | Animals | Places |   
+|:----- |:-------:| ------:|
+| Baleadas    |    2    |      3 |   
+|    Lentils|      |     |
 
 ## Code and Syntax Highlighting
 Notice how throughout this document there have been computer and programming related words formatted to look more "computery". That's because I've used syntax highlighting.
