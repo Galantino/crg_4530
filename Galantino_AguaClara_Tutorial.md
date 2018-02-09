@@ -242,18 +242,19 @@ print(x)
 ut.sig(np.sin(4),3)
 ```
 
-
 4. Create a `list` of length 5, and verify the length of your list. Once you've done that, turn your `list` into an `array` and apply units of meters to it. After that, create a 5x5 `array`, extract the middle row and middle column. Verify the size of your 2D `array` and apply units of liters to it.
 
-<!--- Fill you answer here. --->
-
-
-
-
-
-
-
-
+```python
+L =[1]*5
+len(L)
+array = np.asarray(L)
+array = array*(u.m)
+matrix = np.array([[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]])
+matrix = np.delete(matrix,2,0)
+matrix = np.delete(matrix,2,1)
+print(matrix)
+matrix = matrix*(u.L)
+```
 
 5.  One of the most famous equations for a particle diffusing through a liquid at low Reynolds Number is the Stokes-Einstein Equation where k<sub>B</sub> is the Boltzmann constant, T is the temperature in Kelvin, eta is the dynamic viscosity in kg/(m*s), and r is the particle radius. Write a function that takes a temperature in Kelvin, a particle radius in meters, and a viscosity of water to calculate the diffusion coefficient D.
 
