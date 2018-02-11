@@ -269,13 +269,34 @@ from scipy.constants import Boltzmann as kB_sc # I've imported the unitless valu
 
 kB = kB_sc * u.joule / u.kelvin # I've given kB units for you in J/K; you can use the kB variable to give you Boltzmann's constant with units
 
-# Write your code here
+def DiffusionCoeff(T,r,eta):
+  T = T*(u.kelvin)
+  r = r*(u.m)
+  eta = eta*(u.kg)/(u.m*u.s)
+  D = (kB*T)/(6*np.pi*eta*r)
+  print(D)
+
+DiffusionCoeff(278,3,.001518)
 
 ```
 
 6. You have a pipe with a radius of 0.2 m with water flowing in it at 2 m<sup>3</sup>/s. You want to see how the Reynolds Number changes as viscosity changes due to a change in temperature from 0 to 200<sup>o</sup>C. Create a plot of Reynolds Number against Temperature in Kelvin to show a relationship. Make sure your plot has a title and labeled axes. You can use functions from `physchem` like `pc.re_pipe` and `pc.viscosity_kinematic`. *(Hint: Make an array of temperatures to input into the `pc.viscosity_kinematic` function)*.
 
-<!--- Fill you answer here. --->
+```python
+r = 0.2*u.m
+Diam = 2*r
+FlowRate = 2*(u.m**3)/u.s
+Temp_array = np.linspace(0.1,200,100)*(u.celsius)
+NuArray = pc.viscosity_kinematic(Temp_array)
+ReynoldsNumber = pc.re_pipe(FlowRate, Diam, NuArray)
+
+plt.plot(Temp_array,ReynoldsNumber)
+# put in your x and y variables
+plt.xlabel('Temperature', fontsize=15)
+plt.ylabel('Reynolds Number', fontsize=15)
+plt.show()
+```
+
 
 # Teletype Basics
 In this section you and your team can practice using Teletype together.
