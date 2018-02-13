@@ -3,7 +3,6 @@ from aide_design.play import*
 ```
 #### Christopher Galantino
 ## Laboratory 3 Laboratory Report
-hello
 
 ##Objectives
 
@@ -27,10 +26,8 @@ pH = array[2:1255,3]
 ## plotting
 plt.figure('ax',(10,8))
 plt.plot(restime,pH)
-# put in your x and y variables
 plt.xlabel('Hydraulic Residence Time', fontsize=15)
-
-plt.ylabel('Absorbance', fontsize=15)
+plt.ylabel('pH', fontsize=15)
 plt.show()
 ```
 
@@ -43,8 +40,36 @@ Hconc = 10**(-pH)
 ao = 1/(1+(K1/Hconc)+((K1*K2)/(Hconc**2)))
 a1 = 1/((Hconc/K1)+1+(K2/Hconc))
 a2 = 1/(((Hconc**2)/(K1*K2))+(Hconc/K2)+1)
-
 ```
+In graphing 1.21,1.11
+
+```python
+
+#what is cT for the case of 1.11?
+cT =
+Kw = 10**(-14)
+
+ANCo = 1.854*(u.mmol/u.L)  #is this right?
+ANCin = (10**-3)*(u.mol/u.L)  #is this right?
+print(restime)
+ANCcons = ANCin*(1-np.exp(restime*(-1)))+ANCo*np.exp(restime*(-1))
+ANCclosed = cT*(a1+2*a2)+(Kw/Hconc)-Hconc
+#NEEDS TO BE IN APPROPRIATE units! ^^
+
+x = restime
+y1 = ANCcons
+y2 = ANCclosed
+
+plt.figure('ax',(10,8))
+plt.plot(x,y1, '-b', label = 'Conservative ANC')
+
+plt.plot(x, y2, '-r', label = 'Closed ANC')
+plt.xlabel('Hydraulic Residence Time', fontsize=15)
+plt.ylabel('ANCout', fontsize=15)
+plt.legend(loc='upper left')
+plt.show()
+```
+
 
 
 
