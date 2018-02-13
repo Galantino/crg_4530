@@ -3,7 +3,7 @@ from aide_design.play import*
 ```
 #### Christopher Galantino
 ## Laboratory 3 Laboratory Report
-
+hello
 
 ##Objectives
 
