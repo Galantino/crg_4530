@@ -19,14 +19,16 @@ array = np.array(file)
 V = 4*(u.L)
 Q = 267*(u.mL/u.min)
 theta = V/Q
-print(theta.to(u.sec))
-#theta value was then implemented into the file itself 'Lab3AcidRain_bestdata.csv' because array could not handle units multiplying
-restime = array[2:1255,2]
-pH = array[2:1255,3]
+theta=theta.to(u.sec)
+time = array[1:1255,1]*(u.sec)
+restime = time/theta
+pH = array[1:1255,3]
 ## plotting
-plt.figure('ax',(10,8))
+plt.figure()
+
 plt.plot(restime,pH)
 plt.xlabel('Hydraulic Residence Time', fontsize=15)
+
 plt.ylabel('pH', fontsize=15)
 plt.show()
 ```
@@ -36,7 +38,7 @@ plt.show()
 ```python
 K1 = 10**-6.3
 K2 = 10**-10.3
-Hconc = 10**(-pH)
+Hconc = 10**(-1*pH)
 ao = 1/(1+(K1/Hconc)+((K1*K2)/(Hconc**2)))
 a1 = 1/((Hconc/K1)+1+(K2/Hconc))
 a2 = 1/(((Hconc**2)/(K1*K2))+(Hconc/K2)+1)
@@ -44,32 +46,43 @@ a2 = 1/(((Hconc**2)/(K1*K2))+(Hconc/K2)+1)
 In graphing 1.21,1.11
 
 ```python
-
-#what is cT for the case of 1.11?
-cT =
+Kh = 10**-1.5
+P_CO2 = 10**-3.5
 Kw = 10**(-14)
-
-ANCo = 1.854*(u.mmol/u.L)  #is this right?
-ANCin = (10**-3)*(u.mol/u.L)  #is this right?
-print(restime)
-ANCcons = ANCin*(1-np.exp(restime*(-1)))+ANCo*np.exp(restime*(-1))
-ANCclosed = cT*(a1+2*a2)+(Kw/Hconc)-Hconc
-#NEEDS TO BE IN APPROPRIATE units! ^^
+ANCo = .001854
+ANCin = (10**(-3))
+ANCcons=ANCin*(1-np.exp(restime*(-1)))+ANCo*np.exp(restime*(-1))
+cT4 = ANCo/a1
+ANCclosed = cT4*(a1+2*a2)+(Kw/Hconc)-Hconc
+cT5 = (P_CO2*Kh)/ao
+ANCopen = cT5*(a1+2*a2)+(Kw/Hconc)-Hconc
 
 x = restime
 y1 = ANCcons
 y2 = ANCclosed
+y3 = ANCopen
 
 plt.figure('ax',(10,8))
 plt.plot(x,y1, '-b', label = 'Conservative ANC')
-
 plt.plot(x, y2, '-r', label = 'Closed ANC')
+plt.plot(x, y3, '-g', label = 'Open ANC')
 plt.xlabel('Hydraulic Residence Time', fontsize=15)
 plt.ylabel('ANCout', fontsize=15)
 plt.legend(loc='upper left')
 plt.show()
 ```
 
+```python
+
+cTCons=ANCin*(1-np.exp(restime*(-1)))+ANCo*np.exp(restime*(-1))
+plt.figure('ax',(10,8))
+plt.plot(x,y1, '-b', label = 'Conservative cT')
+plt.xlabel('Hydraulic Residence Time', fontsize=15)
+plt.ylabel('cT', fontsize=15)
+plt.legend(loc='upper left')
+plt.show()
+
+```
 
 
 
