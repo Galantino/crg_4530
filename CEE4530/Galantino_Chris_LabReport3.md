@@ -50,9 +50,10 @@ Kh = 10**-1.5
 P_CO2 = 10**-3.5
 Kw = 10**(-14)
 ANCo = .001854
-ANCin = (10**(-3))
+ANCin = -(10**(-3))
 ANCcons=ANCin*(1-np.exp(restime*(-1)))+ANCo*np.exp(restime*(-1))
 cT4 = ANCo/a1
+
 ANCclosed = cT4*(a1+2*a2)+(Kw/Hconc)-Hconc
 cT5 = (P_CO2*Kh)/ao
 ANCopen = cT5*(a1+2*a2)+(Kw/Hconc)-Hconc
