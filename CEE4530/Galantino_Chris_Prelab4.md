@@ -16,8 +16,17 @@ ANC_cayuga = 1.6*(10**-3)
 ANC_wolf = 70*(10**-6)
 
 ANC_cayuga_after= ANCin*(1-np.exp(-restime))+ANC_cayuga*np.exp(-restime)
-ANC_cayuga_after
+print(ANC_cayuga_after)
 ANC_wolf_after=ANCin*(1-np.exp(-restime))+ANC_wolf*np.exp(-restime)
-ANC_wolf_after
-
+print(ANC_wolf_after)
 ```
+
+2) What is the ANC of a water sample containing only carbonates and a strong acid that is at pH 3.2? This requires that you inspect all of the species in the ANC equation and determine which species are important.
+
+```python
+pH = 3.2
+concH = 10**(-pH)
+ANC = -concH
+print('The ANC of water sample is',ANC)
+```
+3) Bitch
