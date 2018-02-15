@@ -294,23 +294,23 @@ plt.plot(Temp_array,ReynoldsNumber)
 # put in your x and y variables
 plt.xlabel('Temperature', fontsize=15)
 plt.ylabel('Reynolds Number', fontsize=15)
+plt.savefig('./Photos/ReynoldsFigure.png')
 plt.show()
 ```
-
 
 # Teletype Basics
 In this section you and your team can practice using Teletype together.
 
 1. Create a portal for your team members to join. Have them write you words of  encouragement in the space below, and be sure they sign their name next to their encouragements.
 
-<!--- Fill you answer here. --->
+
+Hi Chris! I'm excited for you to learn a lot this semester and to build things -Clare
+
+Go you - Corson
+
+2. Have your other team members create a portal for you to join. In their Markdown file, write them something encouraging, and sign your name.
 
 
-
-
-2. Have you other team members create a portal for you to join. In their Markdown file, write them something encouraging, and sign your name.
-
-<!--- Fill you answer here. --->
 
 
 # GitHub Basics
