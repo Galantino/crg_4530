@@ -54,7 +54,6 @@ Hconc = 10**(-1*pH)
 ao = 1/(1+(K1/Hconc)+((K1*K2)/(Hconc**2)))
 a1 = 1/((Hconc/K1)+1+(K2/Hconc))
 a2 = 1/(((Hconc**2)/(K1*K2))+(Hconc/K2)+1)
-
 Kh = 10**-1.5
 P_CO2 = 10**-3.5
 Kw = 10**(-14)
@@ -96,10 +95,8 @@ theta=theta.to(u.sec)
 time = array[1:1223,1]*(u.sec)
 restime = time/theta
 pH = array[1:1223,2]
-## plotting
 plt.figure()
 plt.plot(restime,pH)
-
 plt.xlabel('Hydraulic Residence Time', fontsize=15)
 plt.ylabel('pH', fontsize=15)
 plt.show()
@@ -138,7 +135,7 @@ plt.plot(x, y3, '-g', label = 'Open ANC')
 plt.xlabel('Hydraulic Residence Time', fontsize=15)
 plt.ylabel('ANCout', fontsize=15)
 plt.legend(loc='upper left')
-plt.savefig('./Photos/ANC_plot_Lab4.png')
+plt.savefig('./Photos/Group6_badANCplot.png')
 plt.show()
 ```
 Because it wasn't mixed properly, the pH trend did not track as tightly as the effect should have been displayed. This was due to the uneven distribution of the carbonate in the reservoir. The ANC appeared to be buffering the solution well, but after one residence time, pH dropped dramatically.
@@ -175,7 +172,7 @@ pH_equiv
 plt.figure()
 
 plt.plot(V_titrant,pH)
-plt.plot(Ve,0, 'ko', label = 'Equivalent Volume' )
+
 
 plt.axvline(x=0.0, color = 'g', label = 'Reaction 1')
 plt.axvline(x=0.1, color = 'g')
@@ -185,11 +182,14 @@ plt.axvline(x=0.11, color = 'blue', label = 'Reaction 2')
 plt.axvline(x=0.2, color = 'blue')
 plt.axvline(x=0.21, color = 'pink', label = 'Reaction 3')
 plt.axvline(x=1, color = 'pink')
+plt.axvline(x = Ve, color = 'yellow' , label = 'Equivalent Volume' )
 
 plt.legend(loc='upper right')
+plt.legend(bbox_to_anchor=(0.95, 1), borderaxespad=1.)
 plt.plot
 plt.xlabel('Volume of titrant added (mL)')
 plt.ylabel('pH')
+plt.savefig('./Photos/Group6_titrationcurve.png')
 plt.show()
 
 ```
@@ -235,12 +235,12 @@ V_titrant = V_array*u.mL
 x=[V_eq.magnitude,V_titrant[-1].magnitude]
 y=[0,(V_titrant[-1]*slope+intercept).magnitude]
 #Now plot the data and the linear regression
-plt.plot(V_titrant, F1_data,'o')
+plt.plot(V_titrant, F1_data,'o', color = 'purple')
 plt.plot(x, y,'r')
 plt.xlabel('Titrant Volume (mL)')
 plt.ylabel('Gran function (mole/L)')
 plt.legend(['data'])
-
+#plt.savefig('./Photos/Group6_granplot.png')
 plt.show()
 
 ```
@@ -251,7 +251,67 @@ The equivalent volume calculated by ProCoDA was 0.739305 mL. This linear regress
 
 Plot the measured ANC of the lake on the same graph as was used to plot the conservative, volatile, and nonvolatile ANC models (see questions 2 to 5 of the Acid Precipitation and Remediation of an Acid Lake lab). Did the measured ANC values agree with the conservative ANC model?
 
+```python
+file = pd.read_csv('Lab3AcidRain_bestdata.csv')
+array = np.array(file)
+V = 4*(u.L)
+Q = 267*(u.mL/u.min)
+theta = V/Q
+theta=theta.to(u.sec)
+time = array[1:1255,1]*(u.sec)
+restime = time/theta
+
+pH = array[1:1255,3]
+K1 = 10**-6.3
+K2 = 10**-10.3
+Hconc = 10**(-1*pH)
+ao = 1/(1+(K1/Hconc)+((K1*K2)/(Hconc**2)))
+a1 = 1/((Hconc/K1)+1+(K2/Hconc))
+a2 = 1/(((Hconc**2)/(K1*K2))+(Hconc/K2)+1)
+Kh = 10**-1.5
+P_CO2 = 10**-3.5
+Kw = 10**(-14)
+
+V_eq = 0.739305*u.mL
+titrant_normality = 0.1*u.mole/u.L
+V_sample = 48.964500*u.mL
+ANC = (V_eq*titrant_normality/V_sample).magnitude
+ANC
+
+ANCo = .001854
+ANCin = -(10**(-3))
+ANCcons = ANCin*(1-np.exp(restime*(-1)))+ANCo*np.exp(restime*(-1))
+cT4 = ANCo
+ANCclosed = ANCo*(a1+2*a2)+(Kw/Hconc)-Hconc
+cT5 = (P_CO2*Kh)/ao
+ANCopen = cT5*(a1+2*a2)+(Kw/Hconc)-Hconc
+
+ANCmeasured = ANCin*(1-np.exp(restime*(-1)))+ANC*np.exp(restime*(-1))
+
+x = restime
+y1 = ANCcons
+y2 = ANCclosed
+y3 = ANCopen
+y4 = ANCmeasured
+
+plt.figure('ax',(10,8))
+plt.plot(x,y1, '-b', label = 'Conservative ANC')
+plt.plot(x, y2, '-r', label = 'Closed ANC')
+plt.plot(x, y3, '-g', label = 'Open ANC')
+plt.plot(x, y4, 'k', label = 'Measured ANC')
+plt.xlabel('Hydraulic Residence Time', fontsize=15)
+plt.ylabel('ANCout (mol/L)', fontsize=15)
+plt.legend(loc='upper left')
+#plt.savefig('./Photos/ANC_compared.png')
+plt.show()
+```
+The measured ANC value and its respective decay is comparable to that of the conservative ANC graph as expected, indicating that the initial calculations are a good approximation of the neutralizing capacity of a species prior to running a reaction.
+
 ##Conclusions
+
+
+
+
 
 
 
