@@ -34,17 +34,14 @@ We used full coil tubing connected on one end to a pump and a Jerrican filled wi
 #####1) *Use multivariable nonlinear regression to obtain the best fit between the experimental data and the two models by minimizing the sum of the squared errors. Use EPA.Solver_AD_Pe and EPA.Solver_CMFR_N. These functions will minimize the error by varying the values of average residence time, (mass of tracer/reactor volume), and either the number of CMFR in series or the Peclet number.*
 
 ```python
-from aide_design.play import *
-import Environmental_Processes_Analysis as EPA
-import importlib
-importlib.reload(EPA)
 
 data_file_path = 'Lab5Part2(CMFR_Final).xls'
 print(EPA.notes(data_file_path))
 
 #I eliminate the beginning of the data file because this is a CMFR and the first data was taken before the dye reached the sensor.
-firstrow = 37
+firstrow = 36
 time_data = EPA.ftime(data_file_path,firstrow,-1)
+
 concentration_data = EPA.Column_of_data(data_file_path,firstrow,-1,1,'mg/L')
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
@@ -53,54 +50,47 @@ C_bar_guess = np.max(concentration_data)
 C_bar_guess
 #The Solver_CMFR_N will return the initial tracer concentration, residence time, and number of reactors in series.
 #This experiment was for a single reactor and so we expect N to be 1!
-
 CMFR = EPA.Solver_CMFR_N(time_data, concentration_data, theta_guess, C_bar_guess)
 #use dot notation to get the 3 elements of the tuple that are in CMFR
 CMFR.C_bar
 CMFR.N
 CMFR.theta
 #create a model curve given the curve fit parameters.
-CMFR_model = CMFR.C_bar * EPA.E_CMFR_N(t_data/CMFR.theta,CMFR.N)
-plt.plot(t_data.to(u.min), concentration_data.to(u.mg/u.L),'r')
-plt.plot(t_data.to(u.min), CMFR_model,'b')
+CMFR_model = CMFR.C_bar * EPA.E_CMFR_N(time_data/CMFR.theta,CMFR.N)
+
+plt.plot(time_data.to(u.min), concentration_data.to(u.mg/u.L),'r')
+plt.plot(time_data.to(u.min), CMFR_model,'b')
+
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
-
 plt.legend(['Measured dye','CMFR Model'])
 #plt.savefig('images/reactorplot.png')
-
 plt.show()
-```
-#Load a data file for a reactor with baffles. This was from a test that used acid as the tracer.
-#The concentration units are moles/L
 
-#####2) *Generate a plot showing the experimental data as points and the model results as thin lines for each of your experiments. Explain which model fits best and discuss those results based on your expectations.*
-```python
 data_file_path1 = 'Baffle1.txt'
 #time initiates at pulse addition
-time_data = EPA.Column_of_data(data_file_path1,367,920,0,'s')
-time_data = time_data*86400
-concentration_data = EPA.Column_of_data(data_file_path1,367,920,1,'mole/L')
+start = 367
+time_data1 = EPA.ftime(data_file_path1,start,-1)
+concentration_data = EPA.Column_of_data(data_file_path1,start,-1,1,'mole/L')
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
 theta_guess = (V_CMFR/Q_CMFR).to(u.s)
-theta_guess
 C_bar_guess = np.max(concentration_data)
-CMFR = EPA.Solver_CMFR_N(time_data, concentration_data, theta_guess, C_bar_guess)
-CMFR.C_bar
-CMFR.N
-CMFR.theta.to(u.min)
-CMFR_model = (CMFR.C_bar*EPA.E_CMFR_N(time_data/CMFR.theta, CMFR.N)).to(u.mole/u.L)
+CMFR1 = EPA.Solver_CMFR_N(time_data1, concentration_data, theta_guess, C_bar_guess)
+CMFR1.C_bar
+CMFR1.N
+CMFR1.theta.to(u.min)
+CMFR1_model = (CMFR1.C_bar*EPA.E_CMFR_N(time_data1/CMFR1.theta, CMFR1.N)).to(u.mole/u.L)
 #use solver to get the advection dispersion parameters
-AD = EPA.Solver_AD_Pe(time_data, concentration_data, theta_guess, C_bar_guess)
-AD.C_bar
-AD.Pe
-AD.theta.to(u.min)
+AD1 = EPA.Solver_AD_Pe(time_data1, concentration_data, theta_guess, C_bar_guess)
+AD1.C_bar
+AD1.Pe
+AD1.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
-AD_model = (AD.C_bar*EPA.E_Advective_Dispersion((time_data/AD.theta).to_base_units(), AD.Pe)).to(u.mole/u.L)
-plt.plot(time_data.to(u.min), concentration_data.to(u.mole/u.L),'-')
-plt.plot(time_data.to(u.min), CMFR_model,'b')
-plt.plot(time_data.to(u.min), AD_model,'g')
+AD1_model = (AD1.C_bar*EPA.E_Advective_Dispersion((time_data1/AD1.theta).to_base_units(), AD1.Pe)).to(u.mole/u.L)
+plt.plot(time_data1.to(u.min), concentration_data.to(u.mole/u.L),'-')
+plt.plot(time_data1.to(u.min), CMFR1_model,'b')
+plt.plot(time_data1.to(u.min), AD1_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
@@ -109,33 +99,29 @@ plt.show()
 
 data_file_path2 = 'Baffle2.txt'
 #time initiates at pulse addition
-time_data = EPA.Column_of_data(data_file_path2,367,920,0,'s')
-time_data = time_data*86400
-concentration_data = EPA.Column_of_data(data_file_path2,367,920,1,'mole/L')
+start = 18
+time_data2 = EPA.ftime(data_file_path2,start,-1)
+concentration_data = EPA.Column_of_data(data_file_path2,start,-1,1,'mole/L')
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
 theta_guess = (V_CMFR/Q_CMFR).to(u.s)
-theta_guess
 C_bar_guess = np.max(concentration_data)
-CMFR = EPA.Solver_CMFR_N(time_data, concentration_data, theta_guess, C_bar_guess)
-
-CMFR.C_bar
-
-CMFR.N
-CMFR.theta.to(u.min)
-CMFR_model = (CMFR.C_bar*EPA.E_CMFR_N(time_data/CMFR.theta, CMFR.N)).to(u.mole/u.L)
+CMFR2 = EPA.Solver_CMFR_N(time_data2, concentration_data, theta_guess, C_bar_guess)
+CMFR2.C_bar
+CMFR2.N
+CMFR2.theta.to(u.min)
+CMFR2_model = (CMFR2.C_bar*EPA.E_CMFR_N(time_data2/CMFR2.theta, CMFR2.N)).to(u.mole/u.L)
 #use solver to get the advection dispersion parameters
-
-
-AD = EPA.Solver_AD_Pe(time_data, concentration_data, theta_guess, C_bar_guess)
-AD.C_bar
-AD.Pe
-AD.theta.to(u.min)
+AD2 = EPA.Solver_AD_Pe(time_data2, concentration_data, theta_guess, C_bar_guess)
+AD2.C_bar
+AD2.Pe
+AD2.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
-AD_model = (AD.C_bar*EPA.E_Advective_Dispersion((time_data/AD.theta).to_base_units(), AD.Pe)).to(u.mole/u.L)
-plt.plot(time_data.to(u.min), concentration_data.to(u.mole/u.L),'-')
-plt.plot(time_data.to(u.min), CMFR_model,'b')
-plt.plot(time_data.to(u.min), AD_model,'g')
+AD2_model = (AD2.C_bar*EPA.E_Advective_Dispersion((time_data2/AD2.theta).to_base_units(), AD2.Pe)).to(u.mole/u.L)
+
+plt.plot(time_data2.to(u.min), concentration_data.to(u.mole/u.L),'-')
+plt.plot(time_data2.to(u.min), CMFR2_model,'b')
+plt.plot(time_data2.to(u.min), AD2_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
@@ -144,33 +130,28 @@ plt.show()
 
 data_file_path3 = 'Baffle3.txt'
 #time initiates at pulse addition
-time_data = EPA.Column_of_data(data_file_path3,34,-1,0,'s')
-time_data = time_data*86400
-concentration_data = EPA.Column_of_data(data_file_path3,34,-1,1,'mole/L')
+start=34
+time_data3 = EPA.ftime(data_file_path3,start,-1)
+concentration_data = EPA.Column_of_data(data_file_path3,start,-1,1,'mole/L')
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
 theta_guess = (V_CMFR/Q_CMFR).to(u.s)
-theta_guess
 C_bar_guess = np.max(concentration_data)
-CMFR = EPA.Solver_CMFR_N(time_data, concentration_data, theta_guess, C_bar_guess)
-
-CMFR.C_bar
-
-CMFR.N
-CMFR.theta.to(u.min)
-CMFR_model = (CMFR.C_bar*EPA.E_CMFR_N(time_data/CMFR.theta, CMFR.N)).to(u.mole/u.L)
+CMFR3 = EPA.Solver_CMFR_N(time_data3, concentration_data, theta_guess, C_bar_guess)
+CMFR3.C_bar
+CMFR3.N
+CMFR3.theta.to(u.min)
+CMFR3_model = (CMFR3.C_bar*EPA.E_CMFR_N(time_data3/CMFR3.theta, CMFR3.N)).to(u.mole/u.L)
 #use solver to get the advection dispersion parameters
-
-
-AD = EPA.Solver_AD_Pe(time_data, concentration_data, theta_guess, C_bar_guess)
-AD.C_bar
-AD.Pe
-AD.theta.to(u.min)
+AD3 = EPA.Solver_AD_Pe(time_data3, concentration_data, theta_guess, C_bar_guess)
+AD3.C_bar
+AD3.Pe
+AD3.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
-AD_model = (AD.C_bar*EPA.E_Advective_Dispersion((time_data/AD.theta).to_base_units(), AD.Pe)).to(u.mole/u.L)
-plt.plot(time_data.to(u.min), concentration_data.to(u.mole/u.L),'-')
-plt.plot(time_data.to(u.min), CMFR_model,'b')
-plt.plot(time_data.to(u.min), AD_model,'g')
+AD3_model = (AD3.C_bar*EPA.E_Advective_Dispersion((time_data3/AD3.theta).to_base_units(), AD3.Pe)).to(u.mole/u.L)
+plt.plot(time_data3.to(u.min), concentration_data.to(u.mole/u.L),'-')
+plt.plot(time_data3.to(u.min), CMFR3_model,'b')
+plt.plot(time_data3.to(u.min), AD3_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
@@ -178,181 +159,52 @@ plt.legend(['Measured dye','CMFR Model', 'AD Model'])
 plt.show()
 ```
 
-#####2) *Generate a plot showing the experimental data as points and the model results as thin lines for each of your experiments. Explain which model fits best and discuss those results based on your expectations.*
-
-done above ^
 #####3) *Compare the trends in the estimated values of N and Pe across your set of experiments. How did your chosen reactor modifications effect dispersion?*
+```python
+AD1.Pe
+>>1.9508928723811871
+CMFR1.N
+>> 2.1613709603431954
+AD2.Pe
+>> 0.78162661414059287
+CMFR2.N
+>> 1.5980665401945651
+AD3.Pe
+>> 1.1872478888720472
+CMFR3.N
+>> 1.8357328657739764
+```
+The trends, when drawing a comparison between 1 and 2 or 1 and 3 make sense because the presence of holes will result in a decrease in dispersion. The experiments were carried out first as a no-hole baffled system, then with one baffle with holes and one without, and finally a system with holes in both baffles. Despite the dispersions being less than that of trial one as expected, there is a discrepancy in the results for experiments 2 and 3.
+
+Since the inclusion of holes from experiment 1 to 2 decreased the dispersion within the system, the results of 3 did not prove correlation for the presence of holes as a source of decreased dispersion. Given a system with more holes, the third trial should hypothetically have produced the lowest dispesion values. The source of this discrepancy could be attributed to a potential inconsistency in the sealant between the walls of the baffles. For instance, there may have been points in the system in which the dye leaked past the tape and gave an inflated value for the concentration during one or more of the experiments.
 
 #####4) *Report the values of $t^\star$ at F = 0.1 for each of your experiments. Do they meet your expectations?*
+$\overline{t}$ is theta , $t^{\star}$ is t over $\overline{t}$
 
+AD.theta about t bar
+
+```python
+t_star1 = time_data1/AD1.Pe
+t_star1 = t_star1.magnitude
+t_star2 = time_data2/AD2.Pe
+t_star2 = t_star2.magnitude
+t_star3 = time_data3/AD3.Pe
+t_star3 = t_star3.magnitude
+
+e1 = EPA.E_Advective_Dispersion(t_star1, AD1.Pe)
+e2 = EPA.E_Advective_Dispersion(t_star2, AD2.Pe)
+e3 = EPA.E_Advective_Dispersion(t_star3, AD3.Pe)
+
+
+from scipy.integrate import quad
+
+def integrand(x, t_star1, AD):
+  return (AD/(4*np.pi*t_star1))**(0.5)*np.exp((-AD*((1-t_star1)**2))/(4*t_star1))
+
+I = quad(integrand, 0, np.inf, args=(t_star1,Pe))
+
+#F = integration of e (in epa)
+```
 #####5) *Evaluate whether there is any evidence of “dead volumes” or “short circuiting” in your reactor.*
 
 #####6) *Make a recommendation for the design of a full scale chlorine contact tank. As part of your recommendation discuss the parameter you chose to vary as part of your experimentation and what the optimal value was determined to be.*
-
-``` python
-def CMFR_Analysis(time,concentration,Q,V,plotnumber):
-  guessedtheta = (V/Q).to(u.min)
-  Cbarguess = np.max(concentration)
-  CMFR= EPA.Solver_CMFR_N(time, concentration, guessedtheta, Cbarguess)
-  CMFR_model = CMFR.C_bar * EPA.E_CMFR_N((time/CMFR.theta).to_base_units(),CMFR.N)
-  CMFRgraph = 'Reactors/images/CMFRplot'
-  CMFRgraph+= plotnumber
-  CMFRgraph+='.png'
-
-  plt.plot(time.to(u.min), concentration.to(u.mg/u.L))
-  plt.plot(time.to(u.min), CMFR_model,'b')
-  plt.xlabel(r'$time (min)$')
-  plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
-  plt.legend(['Measured dye','CMFR Model'])
-
-  plt.savefig(CMFRgraph)
-  plt.show()
-  print(CMFR.N)
-
-def Baffles_Analysis(timeB,concentrationB,Q_B,V_B,plotnumber_B):
-
-  theta_guessB = (V_B/Q_B).to(u.min)
-  C_bar_guess_B = np.max(concentrationB)
-  CMFR_B = EPA.Solver_CMFR_N(timeB,concentrationB,theta_guessB,C_bar_guess_B)
-  CMFR_Model_B = CMFR_B.C_bar* EPA.E_CMFR_N((timeB/CMFR_B.theta).to_base_units(),CMFR_B.N)
-
-  AD = EPA.Solver_AD_Pe(timeB, concentrationB, theta_guessB, C_bar_guess_B)
-  AD_model = (AD.C_bar*EPA.E_Advective_Dispersion((timeB/AD.theta).to_base_units(), AD.Pe))
-
-  saved = 'Reactors/images/reactorplot'
-  saved+= plotnumber_B
-  saved+='.png'
-  plt.scatter(timeB.to(u.min), concentrationB.to(u.mg/u.L))
-  plt.plot(timeB.to(u.min), CMFR_Model_B.to(u.mg/u.L),'b')
-  plt.plot(timeB.to(u.min), AD_model.to(u.mg/u.L),'g')
-  plt.xlabel(r'$time (min)$')
-  plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
-  plt.legend(['CMFR Model', 'AD Model','Measured dye'])
-
-  plt.savefig(saved)
-  plt.show()
-  print(CMFR_B.N,AD.Pe)
-  ```
-
-  ```python
-    #TO CHECK
-  #analysis
-
-  def CMFR_Analysis(time,concentration,Q,V,plotnumber):
-    guessedtheta = (V/Q).to(u.min)
-    Cbarguess = np.max(concentration)
-    CMFR= EPA.Solver_CMFR_N(time, concentration, guessedtheta, Cbarguess)
-    CMFR_model = CMFR.C_bar * EPA.E_CMFR_N((time/CMFR.theta).to_base_units(),CMFR.N)
-    CMFRgraph = 'Reactors/CMFRplot'
-    CMFRgraph+= plotnumber
-    CMFRgraph+='.png'
-
-    plt.plot(time.to(u.min), concentration.to(u.mg/u.L))
-    plt.plot(time.to(u.min), CMFR_model,'b')
-    plt.xlabel(r'$time (min)$')
-    plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
-    plt.legend(['Measured dye','CMFR Model'])
-
-    plt.savefig(CMFRgraph)
-    plt.show()
-    print(CMFR.N)
-
-  def Baffles_Analysis(timeB,concentrationB,Q_B,V_B,plotnumber_B):
-
-    theta_guessB = (V_B/Q_B).to(u.min)
-    C_bar_guess_B = np.max(concentrationB)
-    CMFR_B = EPA.Solver_CMFR_N(timeB,concentrationB,theta_guessB,C_bar_guess_B)
-    CMFR_Model_B = CMFR_B.C_bar* EPA.E_CMFR_N((timeB/CMFR_B.theta).to_base_units(),CMFR_B.N)
-
-    AD = EPA.Solver_AD_Pe(timeB, concentrationB, theta_guessB, C_bar_guess_B)
-    AD_model = (AD.C_bar*EPA.E_Advective_Dispersion((timeB/AD.theta).to_base_units(), AD.Pe))
-
-    saved = 'Reactors/reactorplot'
-    saved+= plotnumber_B
-    saved+='.png'
-    plt.scatter(timeB.to(u.min), concentrationB.to(u.mg/u.L))
-    plt.plot(timeB.to(u.min), CMFR_Model_B.to(u.mg/u.L),'b')
-    plt.plot(timeB.to(u.min), AD_model.to(u.mg/u.L),'g')
-    plt.xlabel(r'$time (min)$')
-    plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
-    plt.legend(['CMFR Model', 'AD Model','Measured dye'])
-
-    plt.savefig(saved)
-    plt.show()
-    print(CMFR_B.N,AD.Pe)
-
-
-
-
-  Week1file = 'Reactors/CMFRJonathansGroup.xls'
-  Week2file = 'Reactors/Reactor28.xls'
-  Week3file = 'Reactors/Reactor37.xls'
-
-  data_file_pathCMFR = 'Reactors/CMFRJonathansGroup.xls'
-
-
-  #I eliminate the beginning of the data file because this is a CMFR and the first data was taken before the dye reached the sensor.
-  firstrowCMFR = 5
-  timeCMFR = EPA.ftime(data_file_pathCMFR,firstrowCMFR,-1)
-  CMFR_data = EPA.Column_of_data(data_file_pathCMFR,firstrowCMFR,-1,1,'mg/L')
-  V_CMFR = 1.5*u.L
-  Q_CMFR = 380 * u.mL/u.min
-  CMFRplotnumber = 'CMFRplot'
-  CMFR_Analysis(timeCMFR,CMFR_data,Q_CMFR,V_CMFR,CMFRplotnumber)
-  CMFR_N = 1
-  timeCMFR
-
-
-  #Baffles
-  #--------------------------------------------------
-
-  V_Baffles = 2*u.L
-  Q_Baffles = 380 * u.mL/u.min
-
-  #Week 2
-
-
-  w2e1time = EPA.ftime(Week2file,276,459)
-  w2e1dye = EPA.Column_of_data(Week2file,276,459,1,'mg/L')
-  w2e1plot='w2e1'
-  Baffles_Analysis(w2e1time,w2e1dye,Q_Baffles,V_Baffles,'w2e1')
-  # N = 2.8595
-  # Pe = 3.569
-
-  w2e2time = EPA.ftime(Week2file,631,710)
-  w2e2dye = EPA.Column_of_data(Week2file,631,710,1,'mg/L')
-  Baffles_Analysis(w2e2time,w2e2dye,Q_Baffles,V_Baffles,'w2e1')
-  # N = 1.436
-  # Pe = 0.5494
-  w2e3time = EPA.ftime(Week2file,1193,-1)
-  w2e3dye = EPA.Column_of_data(Week2file,1193,-1,1,'mg/L')
-  Baffles_Analysis(w2e3time,w2e3dye,Q_Baffles,V_Baffles,'w2e3')
-  # N = 1.3767
-  # Pe = 0.289
-
-  #Week 3
-
-  w3e1time=EPA.ftime(Week3file,453,589)
-  w3e1dye=EPA.Column_of_data(Week3file,453,589,1,'mg/L')
-  Baffles_Analysis(w3e1time,w3e1dye,Q_Baffles,V_Baffles,'w3e1')
-  # N = 1
-  # Pe = 8.865
-
-  w3e2time=EPA.ftime(Week3file,903,1060)
-  w3e2dye=EPA.Column_of_data(Week3file,903,1060,1,'mg/L')
-  Baffles_Analysis(w3e2time,w3e2dye,Q_Baffles,V_Baffles,'w3e2')
-  # N = 1
-  # Pe = 6.9845
-
-
-  plt.plot(w2e1time.to(u.min),w2e1dye.to(u.mg/u.L), label ="First Experiment")
-  plt.plot(w2e2time.to(u.min),w2e2dye.to(u.mg/u.L), label="Second Experiment")
-  plt.plot(w2e3time.to(u.min),w2e3dye.to(u.mg/u.L), label="Third Experiment")
-  plt.plot(w3e1time.to(u.min),w3e1dye.to(u.mg/u.L), label="Fourth Experiment")
-  plt.plot(w3e2time.to(u.min),w3e2dye.to(u.mg/u.L), label="Fifth Experiment")
-  plt.xlabel('Time (min)')
-  plt.ylabel('Concentration (mg/L)')
-  plt.legend()
-  #plt.savefig('Experimentsplots.png')
-  plt.show()
-  ```
