@@ -122,7 +122,7 @@ plt.legend(['Measured dye','CMFR Model', 'AD Model'])
 #plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot1good.png')
 plt.show()
 ```
-![Exp1]()
+![Exp1](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot1good.png?raw=true)
 
 The next set of baffles were then installed (Experiment 2) with the CMFR and AD models fitting the measured data.
 
@@ -159,7 +159,7 @@ plt.legend(['Measured dye','CMFR Model', 'AD Model'])
 #plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot2good.png')
 plt.show()
 ```
-![Exp2]()
+![Exp2](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot2good.png?raw=true)
 
 The next set of baffles were then installed (Experiment 3) with the CMFR and AD models fitting the measured data.
 
@@ -195,7 +195,7 @@ plt.legend(['Measured dye','CMFR Model', 'AD Model'])
 plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot3good.png')
 plt.show()
 ```
-![Exp3]()
+![Exp3](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot3good.png?raw=true)
 
 The team then devised a new experiment (the Coiling experiment) in order to observe the effects of a long coiled system on dispersion.
 
