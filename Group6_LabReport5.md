@@ -12,6 +12,9 @@ import collections
 ### Group 6 (Ben Gassaway, Christopher Galantino, Anna Lawrence)
 ## Laboratory 5 Lab Report
 
+###Equations to be added throughout the report
+$E_{(t)} =
+
 ### Introduction
 In order to test specific natural or engineered processes, reactors can be set up to simulate these chemical, biological, and physical processes and provide insight as to how a certain system would act in different scenarios. Specifically, a reactor can be described as a boundary, literally or figuratively, that physically controls the processes under specific constraints. One gets to decide what they want their system to be, where they want their boundaries to be, what inputs will go into the system, and what is to be measured. Reactors give the user more control over chemical, biological and physical reactions, including temperature control of the vessel contents, measurement of parameters such as pH or pressure, and mixing and dispersing applications. There are a number of different types of reactors, including stirred, high-pressure, and mini reactors. Continuous flow tubular reactors can be externally heated or jacketed with a circulating fluid. Although many different types of reactors, all of these reactors fall under three categories, CMFR (completely mixed flow reactor), PFR (plug-flow reactor) or Batch Reactor. CMFRs are control volumes for which spatially uniform properties may be assumed. They are also reactors with flow, are completely mixed and can attain steady state. Some examples include a room in a building or a small pond. A batch reactor varies from a CMFR for it has no flow. Material is added, mixed, given time for reaction to occur, but then the reactor is drained. Steady state is not attained. PFR, or plug flow reactors, has flow, however, there is no mixing in lateral direction. Properties may vary through the PFR. When modeling a PFR, it is important that it is split into a series of sequential control volumes. The plug flow reactor is an idealized extreme not attainable in practice. All real reactors fall under the category of Batch or CMFR.
 
@@ -68,6 +71,7 @@ plt.legend(['Measured dye','CMFR Model'])
 plt.show()
 
 data_file_path1 = 'Baffle1.txt'
+data_file_path1
 #time initiates at pulse addition
 start = 367
 time_data1 = EPA.ftime(data_file_path1,start,-1)
@@ -157,6 +161,17 @@ plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
 #plt.savefig('images/reactorplot.png')
 plt.show()
+
+data_file_path4 = 'lab5_week3_coil.xls'
+data_file_path4
+print(EPA.notes(data_file_path4))
+#time initiates at pulse addition
+start=346
+time_data4 = EPA.ftime(data_file_path4,start,-1)
+concentration_data = EPA.Column_of_data(data_file_path4,start,-1,1,'mole/L')
+
+
+
 ```
 
 #####3) *Compare the trends in the estimated values of N and Pe across your set of experiments. How did your chosen reactor modifications effect dispersion?*
@@ -174,6 +189,7 @@ AD3.Pe
 CMFR3.N
 >> 1.8357328657739764
 ```
+
 The trends, when drawing a comparison between 1 and 2 or 1 and 3 make sense because the presence of holes will result in a decrease in dispersion. The experiments were carried out first as a no-hole baffled system, then with one baffle with holes and one without, and finally a system with holes in both baffles. Despite the dispersions being less than that of trial one as expected, there is a discrepancy in the results for experiments 2 and 3.
 
 Since the inclusion of holes from experiment 1 to 2 decreased the dispersion within the system, the results of 3 did not prove correlation for the presence of holes as a source of decreased dispersion. Given a system with more holes, the third trial should hypothetically have produced the lowest dispesion values. The source of this discrepancy could be attributed to a potential inconsistency in the sealant between the walls of the baffles. For instance, there may have been points in the system in which the dye leaked past the tape and gave an inflated value for the concentration during one or more of the experiments.
