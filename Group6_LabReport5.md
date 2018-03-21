@@ -12,23 +12,25 @@ import collections
 ### Group 6 (Ben Gassaway, Christopher Galantino, Anna Lawrence)
 ## Laboratory 5 Lab Report
 
-###Equations to be added throughout the report
-$E_{(t)} = \frac{C_{t}V_{r}}{C_{tr}V_{tr}} = e^{(-t/\theta)}$
-
-$Pe = \frac{UL}{D_{d}}$
-
-$t^{\star} = \frac{tU}{L}$
-
-$E_{N_{(t^{\star})}} = \frac{N^{N}}{(N-1)!}(t^{\star})^{N-1}e^{(-Nt^{\star})}$
-
-$d_{orifice} = \sqrt{\frac{4Q_{reactor}}{\pi n_{orifice}K_{orifice}\sqrt{2g\Delta h}}}$
-
-integral formula for finding F using E
-
-$$\int_{0}^{t^{\star}} E_{(t^{\star})dt^{\star}}$$
-
 ### Introduction and Objectives
-In order to test specific natural or engineered processes, reactors can be set up to simulate these chemical, biological, and physical processes and provide insight as to how a certain system would act in different scenarios. Specifically, a reactor can be described as a boundary, literally or figuratively, that physically controls the processes under specific constraints. One gets to decide what they want their system to be, where they want their boundaries to be, what inputs will go into the system, and what is to be measured. Reactors give the user more control over chemical, biological and physical reactions, including temperature control of the vessel contents, measurement of parameters such as pH or pressure, and mixing and dispersing applications. There are a number of different types of reactors, including stirred, high-pressure, and mini reactors. Continuous flow tubular reactors can be externally heated or jacketed with a circulating fluid. Although many different types of reactors, all of these reactors fall under three categories, CMFR (completely mixed flow reactor), PFR (plug-flow reactor) or Batch Reactor. CMFRs are control volumes for which spatially uniform properties may be assumed. They are also reactors with flow, are completely mixed and can attain steady state. Some examples include a room in a building or a small pond. A batch reactor varies from a CMFR for it has no flow. Material is added, mixed, given time for reaction to occur, but then the reactor is drained. Steady state is not attained. PFR, or plug flow reactors, has flow, however, there is no mixing in lateral direction. Properties may vary through the PFR. When modeling a PFR, it is important that it is split into a series of sequential control volumes. The plug flow reactor is an idealized extreme not attainable in practice. All real reactors fall under the category of Batch or CMFR.
+In order to test specific natural or engineered processes, reactors can be set up to simulate these chemical, biological, and physical processes and provide insight as to how a certain system would act in different scenarios. Specifically, a reactor can be described as a boundary, literally or figuratively, that physically controls the processes under specific constraints. For this specific lab, the effluent responses to tracer inputs can be described by the solution to a differential equation for a completely mixed flow reactor: $E_{(t)} = \frac{C_{t}V_{r}}{C_{tr}V_{tr}} = e^{(-t/\theta)}$. The E and F curves define the non-dimensional response curves from pulse inputs and step inputs respectively. The integral formula for finding F using E is depicted below:
+
+$$F_{(t^{\star})} = \int_{0}^{t^{\star}} E_{(t^{\star})dt^{\star}}$$
+
+One gets to decide what they want their system to be, where they want their boundaries to be, what inputs will go into the system, and what is to be measured. The non-dimensional form to describe the concentration of a conservative tracer in the $N^th$ reactor is given below:
+
+$$E_{N_{(t^{\star})}} = \frac{N^{N}}{(N-1)!}(t^{\star})^{N-1}e^{(-Nt^{\star})}$$
+
+Reactors give the user more control over chemical, biological and physical reactions, including temperature control of the vessel contents, measurement of parameters such as pH or pressure, and mixing and dispersing applications. There are a number of different types of reactors, including stirred, high-pressure, and mini reactors. Continuous flow tubular reactors can be externally heated or jacketed with a circulating fluid. Although many different types of reactors, all of these reactors fall under three categories, CMFR (completely mixed flow reactor), PFR (plug-flow reactor) or Batch Reactor. CMFRs are control volumes for which spatially uniform properties may be assumed. The discerning characteristics which make these reactors unique can be defined by the Peclet number. This term characterizes the level of dispersion in a reactor. The relationship between L (the length of the reactor), U (The mean advective velocity), and $D_{d}$ (The dispersion coefficient) can be defined below:
+
+$$Pe = \frac{UL}{D_{d}}$$
+Which is normalized by dividing the value by the hydraulic residence time: $t^{\star} = \frac{tU}{L}$. Combining these two equations yields $D_{d}t = t^{\star}PeL^{2}$
+
+They are also reactors with flow, are completely mixed and can attain steady state. Some examples include a room in a building or a small pond. A batch reactor varies from a CMFR for it has no flow. Material is added, mixed, given time for reaction to occur, but then the reactor is drained. Steady state is not attained. PFR, or plug flow reactors, has flow, however, there is no mixing in lateral direction. Properties may vary through the PFR. When modeling a PFR, it is important that it is split into a series of sequential control volumes. The plug flow reactor is an idealized extreme not attainable in practice. All real reactors fall under the category of Batch or CMFR.
+
+To further characterize these reactors given a pore-based system, the pore diameter and number of orifices can be solved given the relationship below:
+
+$$d_{orifice} = \sqrt{\frac{4Q_{reactor}}{\pi n_{orifice}K_{orifice}\sqrt{2g\Delta h}}}$$
 
 ### Procedure:
 Day 1: Calibration and Set-Up (CMFR)
@@ -186,7 +188,7 @@ AD3.Pe
 AD3.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
 AD3_model = (AD3.C_bar*EPA.E_Advective_Dispersion((time_data3/AD3.theta).to_base_units(), AD3.Pe)).to(u.mg/u.L)
-plt.plot(time_data3.to(u.min), concentration_data.to(u.mg/u.L),'-')
+plt.plot(time_data3.to(u.min), (concentration_data.to(u.mg/u.L)),'-')
 plt.plot(time_data3.to(u.min), CMFR3_model,'b')
 plt.plot(time_data3.to(u.min), AD3_model,'g')
 plt.xlabel(r'$time (min)$')
