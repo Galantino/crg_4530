@@ -95,7 +95,8 @@ data_file_path1
 start = 367
 pd.read_csv(data_file_path1,delimiter='\t')
 time_data1 = EPA.ftime(data_file_path1,start,-1)
-concentration_data = EPA.Column_of_data(data_file_path1,start,-1,1,'mole/L')
+concentration_data = EPA.Column_of_data(data_file_path1,start,-1,1,'mg/L')
+concentration_data = concentration_data-9*u.mg/u.L
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
 theta_guess = (V_CMFR/Q_CMFR).to(u.s)
@@ -104,24 +105,24 @@ CMFR1 = EPA.Solver_CMFR_N(time_data1, concentration_data, theta_guess, C_bar_gue
 CMFR1.C_bar
 CMFR1.N
 CMFR1.theta.to(u.min)
-CMFR1_model = (CMFR1.C_bar*EPA.E_CMFR_N(time_data1/CMFR1.theta, CMFR1.N)).to(u.mole/u.L)
+CMFR1_model = (CMFR1.C_bar*EPA.E_CMFR_N(time_data1/CMFR1.theta, CMFR1.N)).to(u.mg/u.L)
 #use solver to get the advection dispersion parameters
 AD1 = EPA.Solver_AD_Pe(time_data1, concentration_data, theta_guess, C_bar_guess)
 AD1.C_bar
 AD1.Pe
 AD1.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
-AD1_model = (AD1.C_bar*EPA.E_Advective_Dispersion((time_data1/AD1.theta).to_base_units(), AD1.Pe)).to(u.mole/u.L)
-plt.plot(time_data1.to(u.min), concentration_data.to(u.mole/u.L),'-')
+AD1_model = (AD1.C_bar*EPA.E_Advective_Dispersion((time_data1/AD1.theta).to_base_units(), AD1.Pe)).to(u.mg/u.L)
+plt.plot(time_data1.to(u.min), concentration_data.to(u.mg/u.L),'-')
 plt.plot(time_data1.to(u.min), CMFR1_model,'b')
 plt.plot(time_data1.to(u.min), AD1_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-#plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot1.png')
+plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot1.png')
 plt.show()
 ```
-![Exp1](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot1.png?raw=true)
+![Exp1]()
 
 The next set of baffles were then installed (Experiment 2) with the CMFR and AD models fitting the measured data.
 
@@ -130,7 +131,8 @@ data_file_path2 = 'C:\\Users\\en-ce-4530\\github\\crg_4530\\Baffle2.txt'
 #time initiates at pulse addition
 start = 18
 time_data2 = EPA.ftime(data_file_path2,start,-1)
-concentration_data = EPA.Column_of_data(data_file_path2,start,-1,1,'mole/L')
+concentration_data = EPA.Column_of_data(data_file_path2,start,-1,1,'mg/L')
+concentration_data = concentration_data - 15*u.mg/u.L
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
 theta_guess = (V_CMFR/Q_CMFR).to(u.s)
@@ -139,25 +141,25 @@ CMFR2 = EPA.Solver_CMFR_N(time_data2, concentration_data, theta_guess, C_bar_gue
 CMFR2.C_bar
 CMFR2.N
 CMFR2.theta.to(u.min)
-CMFR2_model = (CMFR2.C_bar*EPA.E_CMFR_N(time_data2/CMFR2.theta, CMFR2.N)).to(u.mole/u.L)
+CMFR2_model = (CMFR2.C_bar*EPA.E_CMFR_N(time_data2/CMFR2.theta, CMFR2.N)).to(u.mg/u.L)
 #use solver to get the advection dispersion parameters
 AD2 = EPA.Solver_AD_Pe(time_data2, concentration_data, theta_guess, C_bar_guess)
 AD2.C_bar
 AD2.Pe
 AD2.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
-AD2_model = (AD2.C_bar*EPA.E_Advective_Dispersion((time_data2/AD2.theta).to_base_units(), AD2.Pe)).to(u.mole/u.L)
+AD2_model = (AD2.C_bar*EPA.E_Advective_Dispersion((time_data2/AD2.theta).to_base_units(), AD2.Pe)).to(u.mg/u.L)
 
-plt.plot(time_data2.to(u.min), concentration_data.to(u.mole/u.L),'-')
+plt.plot(time_data2.to(u.min), concentration_data.to(u.mg/u.L),'-')
 plt.plot(time_data2.to(u.min), CMFR2_model,'b')
 plt.plot(time_data2.to(u.min), AD2_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-#plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot2.png')
+plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot2.png')
 plt.show()
 ```
-![Exp2](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot2.png?raw=true)
+![Exp2]()
 
 The next set of baffles were then installed (Experiment 3) with the CMFR and AD models fitting the measured data.
 
@@ -166,7 +168,8 @@ data_file_path3 = 'C:\\Users\\en-ce-4530\\github\\crg_4530\\Baffle3.txt'
 #time initiates at pulse addition
 start=34
 time_data3 = EPA.ftime(data_file_path3,start,-1)
-concentration_data = EPA.Column_of_data(data_file_path3,start,-1,1,'mole/L')
+concentration_data = EPA.Column_of_data(data_file_path3,start,-1,1,'mg/L')
+concentration_data = concentration_data-13*u.mg/u.L
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
 theta_guess = (V_CMFR/Q_CMFR).to(u.s)
@@ -175,24 +178,24 @@ CMFR3 = EPA.Solver_CMFR_N(time_data3, concentration_data, theta_guess, C_bar_gue
 CMFR3.C_bar
 CMFR3.N
 CMFR3.theta.to(u.min)
-CMFR3_model = (CMFR3.C_bar*EPA.E_CMFR_N(time_data3/CMFR3.theta, CMFR3.N)).to(u.mole/u.L)
+CMFR3_model = (CMFR3.C_bar*EPA.E_CMFR_N(time_data3/CMFR3.theta, CMFR3.N)).to(u.mg/u.L)
 #use solver to get the advection dispersion parameters
 AD3 = EPA.Solver_AD_Pe(time_data3, concentration_data, theta_guess, C_bar_guess)
 AD3.C_bar
 AD3.Pe
 AD3.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
-AD3_model = (AD3.C_bar*EPA.E_Advective_Dispersion((time_data3/AD3.theta).to_base_units(), AD3.Pe)).to(u.mole/u.L)
-plt.plot(time_data3.to(u.min), concentration_data.to(u.mole/u.L),'-')
+AD3_model = (AD3.C_bar*EPA.E_Advective_Dispersion((time_data3/AD3.theta).to_base_units(), AD3.Pe)).to(u.mg/u.L)
+plt.plot(time_data3.to(u.min), concentration_data.to(u.mg/u.L),'-')
 plt.plot(time_data3.to(u.min), CMFR3_model,'b')
 plt.plot(time_data3.to(u.min), AD3_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-#plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot3.png')
+plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot3.png')
 plt.show()
 ```
-![Exp3](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot3.png?raw=true)
+![Exp3]()
 
 The team then devised a new experiment (the Coiling experiment) in order to observe the effects of a long coiled system on dispersion.
 
@@ -202,24 +205,25 @@ print(EPA.notes(data_file_path4))
 #time initiates at pulse addition
 start=346
 time_data4 = EPA.ftime(data_file_path4,start,-1)
-concentration_data = EPA.Column_of_data(data_file_path4,start,-1,1,'mole/L')
+concentration_data = EPA.Column_of_data(data_file_path4,start,-1,1,'mg/L')
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
 theta_guess = (V_CMFR/Q_CMFR).to(u.s)
 C_bar_guess = np.max(concentration_data)
 CMFR4 = EPA.Solver_CMFR_N(time_data4, concentration_data, theta_guess, C_bar_guess)
 CMFR4.C_bar
+
 CMFR4.N
 CMFR4.theta.to(u.min)
-CMFR4_model = (CMFR4.C_bar*EPA.E_CMFR_N(time_data4/CMFR4.theta, CMFR4.N)).to(u.mole/u.L)
+CMFR4_model = (CMFR4.C_bar*EPA.E_CMFR_N(time_data4/CMFR4.theta, CMFR4.N)).to(u.mg/u.L)
 #use solver to get the advection dispersion parameters
 AD4 = EPA.Solver_AD_Pe(time_data4, concentration_data, theta_guess, C_bar_guess)
 AD4.C_bar
 AD4.Pe
 AD4.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
-AD4_model = (AD4.C_bar*EPA.E_Advective_Dispersion((time_data4/AD4.theta).to_base_units(), AD4.Pe)).to(u.mole/u.L)
-plt.plot(time_data4.to(u.min), concentration_data.to(u.mole/u.L),'-')
+AD4_model = (AD4.C_bar*EPA.E_Advective_Dispersion((time_data4/AD4.theta).to_base_units(), AD4.Pe)).to(u.mg/u.L)
+plt.plot(time_data4.to(u.min), concentration_data.to(u.mg/u.L),'o')
 plt.plot(time_data4.to(u.min), CMFR4_model,'b')
 plt.plot(time_data4.to(u.min), AD4_model,'g')
 plt.xlabel(r'$time (min)$')
