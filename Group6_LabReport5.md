@@ -81,9 +81,11 @@ plt.plot(time_data.to(u.min), CMFR_model,'b')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model'])
-plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplotCMFR.png')
+#plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplotCMFR.png')
 plt.show()
 ```
+![CMFR](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplotCMFR.png?raw=true)
+
 In order to observe the effects of a set of baffles, specifically Experiment 1 with no holes, the same analysis was performed as before but both the CMFR and AD fit were applied to the measured dye concentration.
 
 ```python
@@ -116,9 +118,10 @@ plt.plot(time_data1.to(u.min), AD1_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot1.png')
+#plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot1.png')
 plt.show()
 ```
+![Exp1](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot1.png?raw=true)
 
 The next set of baffles were then installed (Experiment 2) with the CMFR and AD models fitting the measured data.
 
@@ -151,9 +154,10 @@ plt.plot(time_data2.to(u.min), AD2_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot2.png')
+#plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot2.png')
 plt.show()
 ```
+![Exp2](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot2.png?raw=true)
 
 The next set of baffles were then installed (Experiment 3) with the CMFR and AD models fitting the measured data.
 
@@ -185,9 +189,10 @@ plt.plot(time_data3.to(u.min), AD3_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot3.png')
+#plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot3.png')
 plt.show()
 ```
+![Exp3](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplot3.png?raw=true)
 
 The team then devised a new experiment (the Coiling experiment) in order to observe the effects of a long coiled system on dispersion.
 
@@ -220,44 +225,46 @@ plt.plot(time_data4.to(u.min), AD4_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplotCoil.png')
+#plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplotCoil.png')
 plt.show()
-
 
 ```
 
-We then took the Peclet numbers and the estimated number of CMFR's each system simulated and analyzed them side by side. For our coil experiment where the length of the tube was much greater than the diameter, we expect low dispersion and a high CMFR number value.
+![Coil](https://github.com/Galantino/crg_4530/blob/master/Photos/reactorplotCoil.png?raw=true)
+
+We then took the Peclet numbers and the estimated number of CMFR's each system simulated and analyzed them side by side. For our coil experiment where the length of the tube was much greater than the diameter, we expected low dispersion and a high CMFR number value.
 
 ```python
 AD1.Pe
 >>1.9508928723811871
 CMFR1.N
 >> 2.1613709603431954
+
 AD2.Pe
 >> 0.78162661414059287
 CMFR2.N
 >> 1.5980665401945651
+
 AD3.Pe
 >> 1.1872478888720472
 CMFR3.N
 >> 1.8357328657739764
 
-#4 is our coil experiment
 AD4.Pe
->>
+>>204.3959422679807
 CMFR4.N
->>
+>>103.02205755390601
 ```
 
 The trends, when drawing a comparison between 1 and 2 or 1 and 3 make sense because the presence of holes will result in a decrease in dispersion. The experiments were carried out first as a no-hole baffled system, then with one baffle with holes and one without, and finally a system with holes in both baffles. Despite the dispersions being less than that of trial one as expected, there is a discrepancy in the results for Experiments 2 and 3.
 
-Since the inclusion of holes from Experiment 1 to 2 decreased the dispersion within the system, the results of 3 did not prove correlation for the presence of holes as a source of decreased dispersion. Given a system with more holes, the third trial should hypothetically have produced the highest dispersion values. The reason for this is because the presence of holes allows a pulse of dye to bypass an otherwise longer route (which would have made for a higher length to width ratio and thus lower dispersion).
-
-**note** put coil experiment analysis here. we expect there to be little dispersion and very high peclet number
+Since the inclusion of holes from Experiment 1 to 2 decreased the dispersion within the system, the results of 3 did not prove correlation for the presence of holes as a source of decreased dispersion. Given a system with more holes, the third trial should hypothetically have produced the highest dispersion values. The reason for this is because the presence of holes allows a pulse of dye to bypass an otherwise longer route (which would have made for a higher length to width ratio and thus lower dispersion). Another source of error can be attributed
 
 The source of this discrepancy could be attributed to a potential inconsistency in the sealant between the walls of the baffles. For instance, there may have been points in the system in which the dye leaked past the tape and gave an inflated value for the concentration during one or more of the experiments.
 
-In addition to our dispersion analysis, it appears that the lower the dispersion (high Peclet number) correlated with a higher number of respective CMFR in series. Experiment 3 is the only discrepancy with errors considered above.
+Our Coil experiment was the most successful representation of a PMFR. Due to its large length to width ratio, there was little dispersion (a Peclet number of 204!) and a simulation of about 103 CMFRs in sseries.
+
+In addition to our dispersion analysis, it appears that the lower the dispersion (higher the Peclet number) correlated with a higher number of respective CMFR in series. Experiment 3 is the only discrepancy with errors considered above.
 
 ##### 4) *Report the values of $t^\star$ at F = 0.1 for each of your experiments. Do they meet your expectations?*
 $\overline{t}$ is theta , $t^{\star}$ is t over $\overline{t}$
@@ -294,4 +301,4 @@ inconsistencies in the residence times  of the system so no uniform mixing or tr
 
 ##### 6) *Make a recommendation for the design of a full scale chlorine contact tank. As part of your recommendation discuss the parameter you chose to vary as part of your experimentation and what the optimal value was determined to be.*
 
-##Conclusions
+## Conclusions
