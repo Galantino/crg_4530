@@ -52,20 +52,19 @@ We used multivariable nonlinear regression to obtain the best fit between experi
 
 The first experiment only utilized the CMFR model.
 
+
 ```python
-data_file_path = 'Lab5Part2(CMFR_Final).xls'
+data_file_path = 'C:\\Users\\en-ce-4530\\github\\crg_4530\\Lab5Part2(CMFR_Final).xls'
 print(EPA.notes(data_file_path))
 
 #I eliminate the beginning of the data file because this is a CMFR and the first data was taken before the dye reached the sensor.
 firstrow = 36
 time_data = EPA.ftime(data_file_path,firstrow,-1)
-
 concentration_data = EPA.Column_of_data(data_file_path,firstrow,-1,1,'mg/L')
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
 theta_guess = (V_CMFR/Q_CMFR).to(u.s)
 C_bar_guess = np.max(concentration_data)
-C_bar_guess
 #The Solver_CMFR_N will return the initial tracer concentration, residence time, and number of reactors in series.
 #This experiment was for a single reactor and so we expect N to be 1!
 CMFR = EPA.Solver_CMFR_N(time_data, concentration_data, theta_guess, C_bar_guess)
@@ -82,16 +81,17 @@ plt.plot(time_data.to(u.min), CMFR_model,'b')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model'])
-#plt.savefig('images/reactorplot.png')
+plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplotCMFR.png')
 plt.show()
 ```
 In order to observe the effects of a set of baffles, specifically Experiment 1 with no holes, the same analysis was performed as before but both the CMFR and AD fit were applied to the measured dye concentration.
 
 ```python
-data_file_path1 = 'Baffle1.txt'
+data_file_path1 = 'C:\\Users\\en-ce-4530\\github\\crg_4530\\Baffle1.txt'
 data_file_path1
 #time initiates at pulse addition
 start = 367
+pd.read_csv(data_file_path1,delimiter='\t')
 time_data1 = EPA.ftime(data_file_path1,start,-1)
 concentration_data = EPA.Column_of_data(data_file_path1,start,-1,1,'mole/L')
 V_CMFR = 4*u.L
@@ -116,14 +116,14 @@ plt.plot(time_data1.to(u.min), AD1_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-#plt.savefig('images/reactorplot1.png')
+plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot1.png')
 plt.show()
 ```
 
 The next set of baffles were then installed (Experiment 2) with the CMFR and AD models fitting the measured data.
 
 ```python
-data_file_path2 = 'Baffle2.txt'
+data_file_path2 = 'C:\\Users\\en-ce-4530\\github\\crg_4530\\Baffle2.txt'
 #time initiates at pulse addition
 start = 18
 time_data2 = EPA.ftime(data_file_path2,start,-1)
@@ -151,14 +151,14 @@ plt.plot(time_data2.to(u.min), AD2_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-#plt.savefig('images/reactorplot2.png')
+plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot2.png')
 plt.show()
 ```
 
 The next set of baffles were then installed (Experiment 3) with the CMFR and AD models fitting the measured data.
 
 ```python
-data_file_path3 = 'Baffle3.txt'
+data_file_path3 = 'C:\\Users\\en-ce-4530\\github\\crg_4530\\Baffle3.txt'
 #time initiates at pulse addition
 start=34
 time_data3 = EPA.ftime(data_file_path3,start,-1)
@@ -185,14 +185,14 @@ plt.plot(time_data3.to(u.min), AD3_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-#plt.savefig('images/reactorplot3.png')
+plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplot3.png')
 plt.show()
 ```
 
 The team then devised a new experiment (the Coiling experiment) in order to observe the effects of a long coiled system on dispersion.
 
 ```python
-data_file_path4 = 'lab5_week3_coil.xls'
+data_file_path4 = 'C:\\Users\\en-ce-4530\\github\\crg_4530\\lab5_week3_coil.xls'
 print(EPA.notes(data_file_path4))
 #time initiates at pulse addition
 start=346
@@ -213,15 +213,17 @@ AD4.C_bar
 AD4.Pe
 AD4.theta.to(u.min)
 #Created the advection dispersion model curve based on the solver parameters
-AD3_model = (AD4.C_bar*EPA.E_Advective_Dispersion((time_data4/AD4.theta).to_base_units(), AD4.Pe)).to(u.mole/u.L)
+AD4_model = (AD4.C_bar*EPA.E_Advective_Dispersion((time_data4/AD4.theta).to_base_units(), AD4.Pe)).to(u.mole/u.L)
 plt.plot(time_data4.to(u.min), concentration_data.to(u.mole/u.L),'-')
 plt.plot(time_data4.to(u.min), CMFR4_model,'b')
 plt.plot(time_data4.to(u.min), AD4_model,'g')
 plt.xlabel(r'$time (min)$')
 plt.ylabel(r'Concentration $\left ( \frac{mg}{L} \right )$')
 plt.legend(['Measured dye','CMFR Model', 'AD Model'])
-#plt.savefig('images/reactorplot4.png')
+plt.savefig('C:\\Users\\en-ce-4530\\github\\crg_4530\\Photos\\reactorplotCoil.png')
 plt.show()
+
+
 ```
 
 We then took the Peclet numbers and the estimated number of CMFR's each system simulated and analyzed them side by side. For our coil experiment where the length of the tube was much greater than the diameter, we expect low dispersion and a high CMFR number value.
