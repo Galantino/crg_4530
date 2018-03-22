@@ -303,8 +303,18 @@ I = quad(integrand, 0, np.inf, args=(t_star1,Pe))
 ```
 ##### 5) *Evaluate whether there is any evidence of “dead volumes” or “short circuiting” in your reactor.*
 
-inconsistencies in the residence times  of the system so no uniform mixing or transport
+Any inconsistencies in the residence times of the system would indicate dead volumes or short circuiting, which means that there is non-uniformity in the mixing processes or transport in the reactor.
 
 ##### 6) *Make a recommendation for the design of a full scale chlorine contact tank. As part of your recommendation discuss the parameter you chose to vary as part of your experimentation and what the optimal value was determined to be.*
 
+The design for a full-scale contact chamber must adhere to the overall objective of maximizing the contact time between chlorine and pathogens before being sent to effluent in order to optimize the inactivation of pathogens in the system. This objective will be achieved under the condition that the system performs as closely to an ideal plug flow reactor as possible.
+
+The characteristics of a PFR which allow this reactor to perform so successfully is that they have a very high length to width ratio, consist of a perforated inlet, with outlet and intra-basin baffles. The parameter which the team determined to be the most impactful to the efficiency of the design of a chlorine contact take was the ability to extend the length of the reactor dramatically in comparison to the value of its width. In this experiment, the length of the tubing was ________ compared to it's diameter of a 1/4 in.
+
 ## Conclusions
+
+The team explored the processes and principles behind reactor designs, which covered completely mixed flow reactors (CMFR), plug flow reactors (PFR), and flow with dispersion reactors (FDR). These reactors are defined by their mixing categories. The objective of this laboratory was to maximize the time that it takes for water to travel from the influent tank, through the system, and out through the effluent. By utilizing design parameters, the team investigated which reactor design performed most effectively.
+
+According to theory, the plug flow reactor optimizes a chlorine contact tank's performance by capitalizing on the effects of a large length to width ratio for the reactor. This maximizes the time with which the water must remain in the reactor before exiting the system through the effluent, and thus allows for additional treatment opportunities by maintaining contact between the chlorine and any pathogenic organisms. However, an idealized plug flow reactor is only applicable in theory, so the objective is to design a chlorine contact tank which would approach the level of performance that a theoretical PFR could deliver.
+
+It was determined that the most intuitive approach to achieving this objective would be to extend the length of the reactor to produce a very large length-to-width ratio for this system. As a result, it was found in the team's final experiment using a coil of tubing that a very long reactor produces something similar to the performance of that of a plug flow reactor, despite its impossibility in practice.
