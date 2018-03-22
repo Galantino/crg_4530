@@ -36,19 +36,30 @@ To further characterize these reactors given a pore-based system, the pore diame
 $$d_{orifice} = \sqrt{\frac{4Q_{reactor}}{\pi n_{orifice}K_{orifice}\sqrt{2g\Delta h}}}$$
 
 ### Procedure:
-Day 1: Calibration and Set-Up (CMFR)
+**Day 1:**
+
+Calibration and Set-Up (CMFR)
+
 Our goal was to perform a mass balance on red dye through a reactor of length 30 cm and width 15 cm. We limited our depth to a maximum of 5 cm and used a container with a volume of 4L. We also set our pumping rate to 380 mL/min, giving us a residence time of approximately 6 minutes. Once our reactor was set up to the pump with the correct pipes leading to the influent and effluent, we added tracer directly into the first chamber of our reactor. The red dye allowed us to qualitatively observe the advection and dispersion in the reactors. We calculated our data using ProCoDA II software and a photometer. To calibrate the photometer, our objective was to have a total volume of 1 L circulating through the reactor system. We connected the pump, a 1 L bottle, and the vertically positioned photometer in a closed loop with one another via 18” pipes. 1 L of tap water was added to the bottle and the pump was turned on to 380 mL/min. We set our voltage to 5V on ProCoDA II and confirmed that it was reading values between -1.3V when the light in the photometer is off and +3.5V when it is on. Using a 40 g/L stock solution of Red Dye, we made our calibration curve for our photometer by calculating the volume of red dye that will be needed to generate a calibration with points at 0, 1, 2, 5, 10, 20, 30, 40, and 50 mg/L. The first calibration point, 0 mg/L, was used as our standard and was a record of our voltage prior to adding any red dye. We then added red dye to make the concentration of the reactor 1mg/L and continued to add dye until and recorded all of the standards have been read and formed a linear plot. Once we finished our calibration, we set up a CMFR reactor for our experiment. We connected a pump from a 20L Jerrican filled with tap water to the influent of your reactor and placed our reactor on a stir plate. We connected a 3/8” push-connect fitting is on the effluent side of your reactor and connected the effluent to the drain through a short tube. A second pump head was set up to pull a sample from weir through the photometer and then to the drain. We confirmed our system worked by running the pump at 380 rev/min to check to see if our ProCoDA software was reading a stable voltage of about +3.5V and checking that the volume in the remained constant. For each test, we wanted to measure the reactor volume, residual reactor red dye concentration, and the flow rate. We added a volume of red dye #40 stock until the maximum concentration of the tracer was about 30 mg/L near the influent of the reactor. We calculated data until the majority of the tracer has exited the reactor. Once we terminated the experiment, we poured the contents of the reactor into a container and weighted it to determine the exact volume of the reactor. We used this information to obtain the average concentration in the reactor and to further perform a mass balance on the red dye.
 
-Day 2: Baffles
+**Day 2:**
+
+Baffles
+
 The ideal CMFR model assumes that the fluid in the reactor is perfectly mixed and that there are no concentration gradients inside the reactor. However, in a real-world stirred tank reactor, there most likely will not be perfect mixing and will be concentration gradients present. Baffles contribute additional disturbance to the flow created by the mixer, and provide more effective mixing. We used the set up from the prior week to continue with this part of the lab. For this part if the experiment, we included baffles in order to bring our reactor closer to the ideal of perfect mixing in each of the baffle zones. We also experimented with baffles with different sized pores to achieve mixing within zones. Our objective was to determine the diameter and spacing of the pores required to achieve adequate mixing by measuring the Peclet number. An additional constraint regarding pore design that we took into consideration is that the head loss through the pores does not get too excessive. We tested 3 different baffle designs:
-1.     No holes
-2.     Small holes on the first baffle but no holes on the second baffle
-3.     Small holes on both baffles
+
+1.    No holes
+2.    Small holes on the first baffle but no holes on the second baffle
+3.    Small holes on both baffles
 We dropped red dye into the first section of the reactor and calculated the concentration of the red dye at the effluent using ProCoDA software.  
+
 
 ![baffle](https://github.com/Galantino/crg_4530/blob/master/Photos/29512372_1976368542390569_3045034664998731776_n.png?raw=true)
 
-Day 3: Coiling
+**Day 3:**
+
+Coiling
+
 We used full coil tubing connected on one end to a pump and a Jerrican filled with tap water and on the other end an effluent tube. In order to determine concentration of the red dye, we first needed to measure the volume of the tubes. We measured the tube absent of anything as 1240g and then filled with water as 2015g. These values were used to calculate the mass of the water inside the tubing, 775g. This corresponds to a volume of 775 mL. Since the diameter of the tube was 3/8 inch tubing, dividing the volume by the cross sectional area gives us a length of 35.7 feet. One our system was set up, we added a pulse of .05 mL (20mg/L) of 100g/L red dye into the coiled tube (pump running at 380 rev/min pump).
 
 ![coil](https://github.com/Galantino/crg_4530/blob/master/Photos/29472774_1976368642390559_4477917037200408576_n.png?raw=true)
@@ -339,7 +350,7 @@ In this experiment, the team did not detect the presence of any dead volumes in 
 
 The design for a full-scale contact chamber must adhere to the overall objective of maximizing the contact time between chlorine and pathogens before being sent to effluent in order to optimize the inactivation of pathogens in the system. This objective will be achieved under the condition that the system performs as closely to an ideal plug flow reactor as possible.
 
-The characteristics of a PFR which allow this reactor to perform so successfully is that they have a very high length to width ratio, consist of a perforated inlet, with outlet and intra-basin baffles. The parameter which the team determined to be the most impactful to the efficiency of the design of a chlorine contact take was the ability to extend the length of the reactor dramatically in comparison to the value of its width. In this experiment, the length of the tubing was ________ compared to it's diameter of a 1/4 in.
+The characteristics of a PFR which allow this reactor to perform so successfully is that they have a very high length to width ratio, consist of a perforated inlet, with outlet and intra-basin baffles. The parameter which the team determined to be the most impactful to the efficiency of the design of a chlorine contact take was the ability to extend the length of the reactor dramatically in comparison to the value of its width.
 
 ## Conclusions
 
