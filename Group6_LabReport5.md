@@ -12,6 +12,9 @@ import collections
 ### Group 6 (Ben Gassaway, Christopher Galantino, Anna Lawrence)
 ## Laboratory 5 Lab Report
 
+
+![Us](https://github.com/Galantino/crg_4530/blob/master/Photos/29497351_1976368589057231_6836088403235176448_n.png?raw=true)
+
 ### Introduction and Objectives
 In order to test specific natural or engineered processes, reactors can be set up to simulate these chemical, biological, and physical processes and provide insight as to how a certain system would act in different scenarios. Specifically, a reactor can be described as a boundary, literally or figuratively, that physically controls the processes under specific constraints. For this specific lab, the effluent responses to tracer inputs can be described by the solution to a differential equation for a completely mixed flow reactor: $E_{(t)} = \frac{C_{t}V_{r}}{C_{tr}V_{tr}} = e^{(-t/\theta)}$. The E and F curves define the non-dimensional response curves from pulse inputs and step inputs respectively. The integral formula for finding F using E is depicted below:
 
@@ -47,6 +50,8 @@ We dropped red dye into the first section of the reactor and calculated the conc
 
 Day 3: Coiling
 We used full coil tubing connected on one end to a pump and a Jerrican filled with tap water and on the other end an effluent tube. In order to determine concentration of the red dye, we first needed to measure the volume of the tubes. We measured the tube absent of anything as 1240g and then filled with water as 2015g. These values were used to calculate the mass of the water inside the tubing, 775g. This corresponds to a volume of 775 mL. Since the diameter of the tube was 3/8 inch tubing, dividing the volume by the cross sectional area gives us a length of 35.7 feet. One our system was set up, we added a pulse of .05 mL (20mg/L) of 100g/L red dye into the coiled tube (pump running at 380 rev/min pump).
+
+![coil](https://github.com/Galantino/crg_4530/blob/master/Photos/29472774_1976368642390559_4477917037200408576_n.png?raw=true)
 
 ### Results and Discussion
 
@@ -103,7 +108,7 @@ concentration_data = EPA.Column_of_data(data_file_path1,start,-1,1,'mg/L')
 concentration_data = concentration_data-9*u.mg/u.L
 V_CMFR = 4*u.L
 Q_CMFR = 380 * u.mL/u.min
-theta_guess = (V_CMFR/Q_CMFR).to(u.s)
+theta_guess1 = (V_CMFR/Q_CMFR).to(u.s)
 C_bar_guess = np.max(concentration_data)
 CMFR1 = EPA.Solver_CMFR_N(time_data1, concentration_data, theta_guess, C_bar_guess)
 CMFR1.C_bar
@@ -269,6 +274,8 @@ The trends, when drawing a comparison between 1 and 2 or 1 and 3 make sense beca
 
 Since the inclusion of holes from Experiment 1 to 2 decreased the dispersion within the system, the results of 3 did not prove correlation for the presence of holes as a source of decreased dispersion. Given a system with more holes, the third trial should hypothetically have produced the highest dispersion values. The reason for this is because the presence of holes allows a pulse of dye to bypass an otherwise longer route (which would have made for a higher length to width ratio and thus lower dispersion). Another source of error can be attributed
 
+![dispersion](https://github.com/Galantino/crg_4530/blob/master/Photos/29472434_1976368452390578_1931484270895824896_n.png?raw=true)
+
 The source of this discrepancy could be attributed to a potential inconsistency in the sealant between the walls of the baffles. For instance, there may have been points in the system in which the dye leaked past the tape and gave an inflated value for the concentration during one or more of the experiments.
 
 Our Coil experiment was the most successful representation of a PMFR. Due to its large length to width ratio, there was little dispersion (a Peclet number of 204!) and a simulation of about 103 CMFRs in series.
@@ -295,22 +302,40 @@ e2 = EPA.E_Advective_Dispersion(t_star2, AD2.Pe)
 e3 = EPA.E_Advective_Dispersion(t_star3, AD3.Pe)
 e4 = EPA.E_Advective_Dispersion(t_star4, AD4.Pe)
 
-from scipy.integrate import quad
+deltaT = 5.787*np.exp(-5)*u.sec/AD1.Pe
 
-def integrand(x, t_star1, AD):
-  return (AD/(4*np.pi*t_star1))**(0.5)*np.exp((-AD*((1-t_star1)**2))/(4*t_star1))
+F_CMFR1 = np.cumsum(e1)*deltaT
+F_CMFR2 = np.cumsum(e2)*deltaT
+F_CMFR3 = np.cumsum(e3)*deltaT
+F_CMFR4 = np.cumsum(e4)*deltaT
 
-I = quad(integrand, 0, np.inf, args=(t_star1,Pe))
+#multiply each slice by thickness ∆t
+F_CMFR_1_10percent1 = F_CMFR1*.1
+F_CMFR_1_10percent2 = F_CMFR2*.1
+F_CMFR_1_10percent3 = F_CMFR3*.1
+F_CMFR_1_10percent4 = F_CMFR4*.1
 
-#F = integration of e (in epa)
+while i < F_CMFR_10percent1:
+j = j+1
+i = F_CMFR1[j]
+
+while i < F_CMFR_10percent2:
+j = j+1
+i = F_CMFR2[j]
+
+while i < F_CMFR_10percent3:
+j = j+1
+i = F_CMFR3[j]
+
+while i < F_CMFR_10percent4:
+j = j+1
+i = F_CMFR4[j]
 ```
-##### 5) *Evaluate whether there is any evidence of “dead volumes” or “short circuiting” in your reactor.*
+**something is terribly wrong ^^^**
 
 Any inconsistencies in the residence times of the system would indicate dead volumes or short circuiting, which means that there is non-uniformity in the mixing processes or transport in the reactor. Reactors with these conditions will allow for bypassing of the treatment train within the reactor, leaving a danger for untreated pathogens.
 
 In this experiment, the team did not detect the presence of any dead volumes in the system. This is a logical assessment because our mixing process was vigorous enough in a small enough volume to prevent any short circuiting or dead volumes in the system.
-
-##### 6) *Make a recommendation for the design of a full scale chlorine contact tank. As part of your recommendation discuss the parameter you chose to vary as part of your experimentation and what the optimal value was determined to be.*
 
 The design for a full-scale contact chamber must adhere to the overall objective of maximizing the contact time between chlorine and pathogens before being sent to effluent in order to optimize the inactivation of pathogens in the system. This objective will be achieved under the condition that the system performs as closely to an ideal plug flow reactor as possible.
 
