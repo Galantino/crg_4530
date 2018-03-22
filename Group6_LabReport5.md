@@ -43,6 +43,8 @@ The ideal CMFR model assumes that the fluid in the reactor is perfectly mixed an
 3.     Small holes on both baffles
 We dropped red dye into the first section of the reactor and calculated the concentration of the red dye at the effluent using ProCoDA software.  
 
+![baffle](https://github.com/Galantino/crg_4530/blob/master/Photos/29512372_1976368542390569_3045034664998731776_n.png?raw=true)
+
 Day 3: Coiling
 We used full coil tubing connected on one end to a pump and a Jerrican filled with tap water and on the other end an effluent tube. In order to determine concentration of the red dye, we first needed to measure the volume of the tubes. We measured the tube absent of anything as 1240g and then filled with water as 2015g. These values were used to calculate the mass of the water inside the tubing, 775g. This corresponds to a volume of 775 mL. Since the diameter of the tube was 3/8 inch tubing, dividing the volume by the cross sectional area gives us a length of 35.7 feet. One our system was set up, we added a pulse of .05 mL (20mg/L) of 100g/L red dye into the coiled tube (pump running at 380 rev/min pump).
 
@@ -242,19 +244,20 @@ We then took the Peclet numbers and the estimated number of CMFR's each system s
 
 ```python
 AD1.Pe
->>1.9508928723811871
+>>4.203151823883041
 CMFR1.N
->> 2.1613709603431954
+>> 3.3074345484685899
 
 AD2.Pe
->> 0.78162661414059287
+>> 3.2860320289495113
 CMFR2.N
->> 1.5980665401945651
+>> 2.7817080623570356
+
 
 AD3.Pe
->> 1.1872478888720472
+>> 3.7337850032667128
 CMFR3.N
->> 1.8357328657739764
+>> 3.1213988524919114204
 
 AD4.Pe
 >>204.3959422679807
@@ -268,7 +271,7 @@ Since the inclusion of holes from Experiment 1 to 2 decreased the dispersion wit
 
 The source of this discrepancy could be attributed to a potential inconsistency in the sealant between the walls of the baffles. For instance, there may have been points in the system in which the dye leaked past the tape and gave an inflated value for the concentration during one or more of the experiments.
 
-Our Coil experiment was the most successful representation of a PMFR. Due to its large length to width ratio, there was little dispersion (a Peclet number of 204!) and a simulation of about 103 CMFRs in sseries.
+Our Coil experiment was the most successful representation of a PMFR. Due to its large length to width ratio, there was little dispersion (a Peclet number of 204!) and a simulation of about 103 CMFRs in series.
 
 In addition to our dispersion analysis, it appears that the lower the dispersion (higher the Peclet number) correlated with a higher number of respective CMFR in series. Experiment 3 is the only discrepancy with errors considered above.
 
@@ -303,7 +306,9 @@ I = quad(integrand, 0, np.inf, args=(t_star1,Pe))
 ```
 ##### 5) *Evaluate whether there is any evidence of “dead volumes” or “short circuiting” in your reactor.*
 
-Any inconsistencies in the residence times of the system would indicate dead volumes or short circuiting, which means that there is non-uniformity in the mixing processes or transport in the reactor.
+Any inconsistencies in the residence times of the system would indicate dead volumes or short circuiting, which means that there is non-uniformity in the mixing processes or transport in the reactor. Reactors with these conditions will allow for bypassing of the treatment train within the reactor, leaving a danger for untreated pathogens.
+
+In this experiment, the team did not detect the presence of any dead volumes in the system. This is a logical assessment because our mixing process was vigorous enough in a small enough volume to prevent any short circuiting or dead volumes in the system.
 
 ##### 6) *Make a recommendation for the design of a full scale chlorine contact tank. As part of your recommendation discuss the parameter you chose to vary as part of your experimentation and what the optimal value was determined to be.*
 
