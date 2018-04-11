@@ -5,7 +5,10 @@
 
 ###Introduction
 
-The problem which the team will seek to solve is the aeration problem for Ocotal, Nicaragua plant. The facility that currently stands in Ocotal will be replaced by an AguaClara plant, and is assumed to contain an aerator in the treatment train. In order to align with the mission of AguaClara, it would be invaluable to invent a hydraulically ~~driver~~ driven aerator in which the gravitational potential energy is utilized to power the system, and does so with great efficiency.
+The problem which the team will seek to solve is the aeration problem for Ocotal, Nicaragua plant. The facility that currently stands in Ocotal will be replaced by an AguaClara plant, and is assumed to contain an aerator in the treatment train. In order to align with the mission of AguaClara, it would be invaluable to invent a hydraulically driven aerator in which the gravitational potential energy is utilized to power the system, and does so with great efficiency.
+
+
+![venturi](https://github.com/AguaClara/horizontal_filtration/blob/master/images/venturi4.gif?raw=true)
 
 <span style="color:blue">Update from Ocotal. The available head isn't sufficient to power a traditional cascade style aerator. I am recommending that they count the LFOM as an aeration system and that they enhance the performance of the LFOM as an aerator by extending the LFOM tube to the bottom of the flocculator so that it carries the entrained bubbles deeper. The core idea is that we want to maximize the residence time of the bubbles in the water because we learned from the aeration lab that 97% of the oxygen was still in the bubbles when they escaped from the reactor! The venturi that you discuss below is your proposal for entraining air into the water. This will replace the free fall cascade effect of the LFOM. The interesting part of the research is designing a reactor that keeps those bubbles in suspension for a longer time. Thus you could use any air injection system including the little air stone as your bubble source. </span>
 
@@ -40,9 +43,10 @@ Experiments to test the efficiency of a Venturi-based aerator will be tested on 
 ###Resources needed to conduct experiments
 1. Electric drill
 2. Peristaltic pumps
-3. PVC piping
-4. DO probes
+3. PVC piping (from Aguaclara lab)
+4. 3 DO probes
 5. Plastic sheets
+6. sulfite and cobalt items to deoxygenate water
 
 ###Expectations/Anticipated results
 
