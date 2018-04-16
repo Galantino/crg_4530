@@ -8,7 +8,7 @@
 The problem which the team will seek to solve is the aeration problem for Ocotal, Nicaragua plant. The facility that currently stands in Ocotal will be replaced by an AguaClara plant, and is assumed to contain an aerator in the treatment train. In order to align with the mission of AguaClara, it would be invaluable to invent a hydraulically driven aerator in which the gravitational potential energy is utilized to power the system, and does so with great efficiency.
 
 
-![venturi](https://github.com/AguaClara/horizontal_filtration/blob/master/images/venturi4.gif?raw=true)
+![venturi](https://github.com/Galantino/crg_4530/blob/master/Photos/venturi4.gif?raw=true)
 
 <span style="color:blue">Update from Ocotal. The available head isn't sufficient to power a traditional cascade style aerator. I am recommending that they count the LFOM as an aeration system and that they enhance the performance of the LFOM as an aerator by extending the LFOM tube to the bottom of the flocculator so that it carries the entrained bubbles deeper. The core idea is that we want to maximize the residence time of the bubbles in the water because we learned from the aeration lab that 97% of the oxygen was still in the bubbles when they escaped from the reactor! The venturi that you discuss below is your proposal for entraining air into the water. This will replace the free fall cascade effect of the LFOM. The interesting part of the research is designing a reactor that keeps those bubbles in suspension for a longer time. Thus you could use any air injection system including the little air stone as your bubble source. </span>
 
@@ -51,3 +51,8 @@ Experiments to test the efficiency of a Venturi-based aerator will be tested on 
 ###Expectations/Anticipated results
 
 The team expects that a working model for the Venturi system to perform relatively well, however, it is unlikely that the team will be able to reach the point of development to produce an elegant prototype given the time constraints for the project. It is expected that the team will find valuable data to give insight into the value of pursuing this type of research.
+
+Things to calculate:
+we know that the diameter of a bubble was 4 mm
+
+so from this known value, we must determine (in order) the: volume of a bubble, resulting upflow velocity of a bubble (which in turn is the minimum downward velocity needed to retain the bubbles in the system), the resulting flow rate needed (with 1 inch diam tube).
