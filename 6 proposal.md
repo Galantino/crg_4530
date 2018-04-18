@@ -56,3 +56,31 @@ Things to calculate:
 we know that the diameter of a bubble was 4 mm
 
 so from this known value, we must determine (in order) the: volume of a bubble, resulting upflow velocity of a bubble (which in turn is the minimum downward velocity needed to retain the bubbles in the system), the resulting flow rate needed (with 1 inch diam tube).
+
+```python
+from aide_design.play import*
+import Environmental_Processes_Analysis as EPA
+import importlib
+importlib.reload(EPA)
+import scipy
+from scipy import special
+from scipy import stats
+from scipy.optimize import curve_fit
+import collections
+
+d_bubble = 4*u.mm
+rho_air = 1.225*u.kg/u.m**3
+rho_water = 997*u.kg/u.m**3
+Cd = .6  #since bubble experiences turbulence
+Nu = 9.554*(10**-7)*u.m**2/u.sec  #at 22 C
+Vt = -np.sqrt((4*pc.gravity*d_bubble*(rho_water-rho_air)/(3*Cd*rho_water)))
+Re = (Vt.to(u.m/u.s)*d_bubble.to(u.m))/Nu
+>> Re = 1235 #this is a good Re to correlate with the drag coeff of 0.6
+>> Vt = 0.295 m/s
+
+d_tube = 0.5*u.inch
+A_tube = pc.area_circle(d_tube)
+Q = Vt*A_tube
+Q.to(u.mL/u.s)
+>>Q_needed = 37.378 mL/s
+```
