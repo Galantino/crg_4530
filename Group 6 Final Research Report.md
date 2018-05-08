@@ -47,27 +47,40 @@ The team intends to fine tune the experimental setup based on what is learned fr
 ####Timeline of tasks/experiments
 - 4/16: Develop a working benchtop system to begin flow and constriction tests
 - 4/23: Present a robust model of the benchtop model regarding flow aeration
-- 4/30: Establish scalable parameters for the system to be implemented on the scale of an AguaClara plant
+- 4/30: Manipulate the model in order to maximize bubble retention and overall aeration performance
 - Final presentations of the experiments and results
 
 ####Possible hurdles/challenges
 - Access to data to compare the efficiency of a hydraulic system to the already-implemented aerator in Ocotal
 - Developing a consistent testing system for the reactor's performance
+- Providing an appropriate amount of water for the experiments
 
 ####Resources needed to conduct experiments
 1. Electric drill
-2. Peristaltic pumps
-3. PVC piping (from Aguaclara lab)
-4. 3 DO probes
+2. Peristaltic pumps (600 RPM)
+3. PVC piping (from AguaClara lab)
+4. 2 DO probes (if time permits DO testing)
 5. Plastic sheets
-6. sulfite and cobalt items to deoxygenate water
+6. sulfite and cobalt items to deoxygenate water (if time permits DO testing)
+7. push-to-connects (adapters as well)
 
 ####Expectations/Anticipated results
 
-The team expects that a working model for the Venturi system to perform relatively well, however, it is unlikely that the team will be able to reach the point of development to produce an elegant prototype given the time constraints for the project. It is expected that the team will find valuable data to give insight into the value of pursuing this type of research.
+The team expects that a working model for aeration system will perform relatively well; however, it is unlikely that the team will be able to reach the point of development to produce an elegant prototype given the time constraints for the project. It is expected that the team will find valuable data to give insight into the value of pursuing this type of research.
 
-Things to calculate:
-we know that the diameter of a bubble was 4 mm
+###Procedures
+
+The team moved through a series of preliminary steps before beginning the fabrication. To begin, there were several calculations to perform to understand the effects of specific constraints and how these parameters influence expected performance
+
+####Calculations
+
+The team began with a simple experiment through an aeration stone similar to the aeration lab done earlier in the semester. The purpose of this was to observe how large the average bubble was. By determining the diameter of a bubble, one could then find the resulting upflow velocity in a fluid (in this case water). With this upflow velocity known, the team then knows the minimum downward velocity needed within the apparatus to retain bubbles in the system.
+
+
+[picture of aeration stone in action]
+
+
+After a short trial of the aeration stone with a airflow of 200uM/s, the diameter of the average bubble was about 4 mm.
 
 so from this known value, we must determine (in order) the: volume of a bubble, resulting upflow velocity of a bubble (which in turn is the minimum downward velocity needed to retain the bubbles in the system), the resulting flow rate needed (with 1 inch diam tube).
 
