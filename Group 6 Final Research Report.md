@@ -12,9 +12,14 @@ Monroe has recommended that the plant operators count the LFOM as an aeration sy
 
 Initially, a venturi system was proposed for the introduction of oxygen without the need for active air pumping. A venturi works by providing a constriction in a flowing fluid, increasing velocity and decreasing pressure at the point in which the channel narrows. This decreased pressure promotes the inflow of oxygen from the atmosphere as a result of the produced vacuum effect.
 
-![venturi](https://github.com/Galantino/crg_4530/blob/master/Photos/venturi4.gif?raw=true)
+<center>
 
-**need to center this photo**
+|<img src="https://github.com/Galantino/crg_4530/blob/master/Photos/venturi4.gif?raw=true" >|
+|:---:|
+|Figure 1: Venturi system  |
+
+</center>
+
 
 While a venturi may replace the free fall cascade effect of the LFOM, it may prove difficult to keep the bubbles in suspension for a long time throughout the length of the reactor. Thus, the team experimented with various air injection systems such as an air stone and eventually a high pressure jet.
 
@@ -74,15 +79,21 @@ The team moved through a series of preliminary steps before beginning the fabric
 
 ####Calculations
 
-The team began with a simple experiment through an aeration stone similar to the aeration lab done earlier in the semester. The purpose of this was to observe how large the average bubble was. By determining the diameter of a bubble, one could then find the resulting upflow velocity in a fluid (in this case water). With this upflow velocity known, the team then knows the minimum downward velocity needed within the apparatus to retain bubbles in the system.
+The team began with a simple experiment through an aeration stone similar to the aeration lab done earlier in the semester. The purpose of this was to observe how large the average bubble was. By determining the diameter of a bubble, one could then find the resulting upflow velocity in a fluid (in this case water). This relationship can be described by the following relationshi:
+
+**[equation]**
+
+$$ Vt = \sqrt\frac{4g}{3Cd}\frac{\rho_{particle}-\rho_{H2O}}{\rho_{H2O}}    $$
+
+With this upflow velocity known, the team then knows the minimum downward velocity needed within the apparatus to retain bubbles in the system.
 
 
-[picture of aeration stone in action]
+**[picture of aeration stone in action]**
 
 
 After a short trial of the aeration stone with a airflow of 200uM/s, the diameter of the average bubble was about 4 mm.
 
-so from this known value, we must determine (in order) the: volume of a bubble, resulting upflow velocity of a bubble (which in turn is the minimum downward velocity needed to retain the bubbles in the system), the resulting flow rate needed (with 1 inch diam tube).
+Below are the calculations that followed this known value.
 
 ```python
 from aide_design.play import*
@@ -95,14 +106,14 @@ from scipy import stats
 from scipy.optimize import curve_fit
 import collections
 
-d_bubble = 4*u.mm
-rho_air = 1.225*u.kg/u.m**3
-rho_water = 997*u.kg/u.m**3
-Cd = .6  #since bubble experiences turbulence
-Nu = 9.554*(10**-7)*u.m**2/u.sec  #at 22 C
+d_bubble = 4*u.mm #diameter of the bubble
+rho_air = 1.225*u.kg/u.m**3 #density of air
+rho_water = 997*u.kg/u.m**3 #density of water
+Cd = .6  #drag coeff (several iterations with Reynolds number were performed to get this value)
+Nu = 9.554*(10**-7)*u.m**2/u.sec  #viscosity at 22 C
 Vt = -np.sqrt((4*pc.gravity*d_bubble*(rho_water-rho_air)/(3*Cd*rho_water)))
 Re = (Vt.to(u.m/u.s)*d_bubble.to(u.m))/Nu
->> Re = 1235 #this is a good Re to correlate with the drag coeff of 0.6
+>> Re = 1235 #this is a good Reynolds number to correlate with the drag coeff of 0.6
 >> Vt = 0.295 m/s
 
 d_tube = 0.5*u.inch
